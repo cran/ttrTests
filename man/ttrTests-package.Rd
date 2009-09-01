@@ -7,19 +7,14 @@
 A series of tests for the efficacy of a technical trading rule (TTR)
 }
 \description{
-Contains four major tests supported by other functions:
- - Did the TTR strategy outperform a benchmark in the past data?
- - Is the excess return significant, using bootstrapping to construct
-   a confidence interval?
- - Is the excess return explained by data snooping?
- - Is the 'good' choice of parameters robust across sub-samples?
+Contains four major tests supported by other functions: Did the TTR strategy outperform a benchmark in the past data?  Is the excess return significant, using bootstrapping to construct a confidence interval?  Is the excess return explained by data snooping? Is the 'good' choice of parameters robust across sub-samples?
 }
 \details{
 \tabular{ll}{
 Package: \tab ttrTests\cr
 Type: \tab Package\cr
-Version: \tab 1.0\cr
-Date: \tab 2009-08-15\cr
+Version: \tab 1.2\cr
+Date: \tab 2009-09-01\cr
 License: \tab GPL\cr
 LazyLoad: \tab yes\cr
 }
@@ -37,7 +32,15 @@ and whose output is a ternary trading rule, i.e. 1 for 'long', -1 for
 'short', and 0 for neither.  Built in TTR functions have this behavior,
 and any user defined function with this behavior is accepted.
 
-Now, the four major functions:
+USER PROVIDED TTR FUNCTIONS MUST HAVE THE FOLLOWING FORM:
+
+ttr ( x , params , burn , short)
+
+Where x is the data, params is a numeric vector of parameters, burn is an integer
+describing the 'burn' period, and short is logical.  The function need not
+use these, but they must accept them.
+
+Now, the four major functions of the package:
 
 1) returnStats(x,ttr) compares the performance of the TTR with some
 benchmark.  A ttr that has good performance merits further study.
@@ -47,7 +50,7 @@ and gives a z-score and p-value for the excess return observed in (1).  If
 the TTR fails this test, it means that the good performance was just as
 likely due to luck in how the data was constructed.
 
-3) realityCheck(x,ttr) constructs a confidence interval for the 'best'
+3) dataSnoop(x,ttr) constructs a p-value for the 'best'
 choice of parameters within a given domain (preferably large). If a TTR
 fails this test, it means that good performance is just as likely due
 to luck in picking a choice of parameters.
@@ -57,6 +60,11 @@ are robust across different time periods.  This is a type of 'out-of-
 sample' confirmation.  If this test fails, it means that regardless of
 how significant the performance of a TTR was, we cannot count on any
 choice of parameters to consistently perform well.
+
+This most recent version allows the results of these tests to be written
+to a file in LaTeX code as a figure.  It also includes two tests for data
+snooping, White's Reality Check and Hansen's test for Superior Predictive
+Ability, the later not included in the first version.
 }
 \author{
 David St John
@@ -133,6 +141,6 @@ spData <- as.vector(getYahooData("SPY",start="20060101",end="20081231")[,"Close"
 
 stat <- returnStats(spData)
 null <- nullModel(spData,nSamples=5)
-rc <- realityCheck(spData,bSamples=5)
+spa <- dataSnoop(spData,bSamples=5)
 pp <- paramPersist(spData)
 }

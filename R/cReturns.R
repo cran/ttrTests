@@ -10,6 +10,8 @@ function(x,ttr="macd4",params=0,burn=0,short=FALSE,TC=0.001)
 ## position is forced to '0' during the 'burn' period
 ## position is always '1' or '0' if short is FALSE
 
+## ## { if(ttr=="macd4")
+## ## {
 {
 
 result <- indicator(x=x,ttr=ttr,params=params,burn=burn,short=short)
@@ -28,11 +30,20 @@ nTrades <- sum(abs(ind))
 returns <- diff(log(x))
 returns[length(x)] <- 0
 
+lReturns <- ifelse(pos>0,returns,NA)
+sReturns <- ifelse(pos<0,returns,NA)
+nReturns <- ifelse(pos==0,returns,NA)
+
+lReturns <- deleteNA(lReturns)
+sReturns <- deleteNA(sReturns)
+nReturns <- deleteNA(nReturns)
+
 cReturns <- returns*pos
 
 adjust <- nTrades*TC
 aaReturn <- (1/length(cReturns))*(sum(cReturns)-adjust)
-list(cReturns,aaReturn)
+list(cReturns,aaReturn,lReturns,sReturns,nReturns)
 
+## ## }
 }
 

@@ -6,13 +6,15 @@ function(ttr)
 ## params, start, nSteps, stepSize, 
 
 { 
+if(is.character(ttr))
+{
 if(ttr=="macd4")
 	{ 
 	params <- c(12,26,1,9)
 	start <- c(8,5,1,4)
 	stepSize <- c(3,2,1,1)
 	nSteps <- c(4,3,1,2)
-	list(params,start,stepSize,nSteps)
+	list(params,start,stepSize,nSteps,TRUE)
 	}
 else if(ttr=="none")
 	{
@@ -28,7 +30,7 @@ else if(ttr=="aroon")
 	start <- c(10,20,20)
 	stepSize <- c(4,10,10)
 	nSteps <- c(3,3,3)
-	list(params,start,stepSize,nSteps)
+	list(params,start,stepSize,nSteps,FALSE)
 	}
 else if(ttr=="cci")
 	{
@@ -36,7 +38,7 @@ else if(ttr=="cci")
 	start <- c(15,40,30)
 	stepSize <- c(3,10,15)
 	nSteps <- c(3,3,3)
-	list(params,start,stepSize,nSteps)
+	list(params,start,stepSize,nSteps,FALSE)
 	}
 else if(ttr=="cmo")
 	{
@@ -44,7 +46,7 @@ else if(ttr=="cmo")
 	start <- c(8,5)
 	stepSize <- c(3,3)
 	nSteps <- c(4,4)
-	list(params,start,stepSize,nSteps)
+	list(params,start,stepSize,nSteps,FALSE)
 	}
 else if(ttr=="kst")
 	{
@@ -52,7 +54,7 @@ else if(ttr=="kst")
 	start <- c(5,5,5,5,10,10,10,10,5)
 	stepSize <- c(5,5,10,10,5,5,10,10,3)
 	nSteps <- c(2,2,1,1,2,2,1,1,2)
-	list(params,start,stepSize,nSteps)
+	list(params,start,stepSize,nSteps,FALSE)
 	}
 else if(ttr=="macd")
 	{
@@ -60,7 +62,7 @@ else if(ttr=="macd")
 	start <- c(8,5,4)
 	stepSize <- c(3,2,2)
 	nSteps <- c(4,3,2)
-	list(params,start,stepSize,nSteps)
+	list(params,start,stepSize,nSteps,TRUE)
 	}
 else if(ttr=="tdi")
 	{
@@ -68,7 +70,7 @@ else if(ttr=="tdi")
 	start <- c(8,1)
 	stepSize <- c(4,1)
 	nSteps <- c(5,3)
-	list(params,start,stepSize,nSteps)
+	list(params,start,stepSize,nSteps,FALSE)
 	}
 else if(ttr=="trix")
 	{
@@ -76,8 +78,10 @@ else if(ttr=="trix")
 	start <- c(8,5)
 	stepSize <- c(6,2)
 	nSteps <- c(4,4)
-	list(params,start,stepSize,nSteps)
+	list(params,start,stepSize,nSteps,FALSE)
 	}
-else 0
+else list(0,0,0,0,0)
+}
+else list(0,0,0,0,0)
 }
 

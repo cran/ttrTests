@@ -36,6 +36,10 @@ TTR "hold" returns a position of 1 always, i.e. always long
 \value{
 Outputs several lists of parameters.  Could be of different length 
 depending on TTR. Used almost exclusively within other functions.
+
+If the final output value is TRUE, this will force the second parameter
+(and 4th, if applicable) to be strictly greater than the first (3rd, resp.)
+This is sensible if the pairs are moving average parameters.
 }
 \references{
 http://cran.r-project.org/web/packages/TTR/

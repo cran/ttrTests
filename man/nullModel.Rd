@@ -6,12 +6,13 @@ Hypothesis test for efficacy of TTR
 }
 \description{
 One of the four main functions in the package.  Creates a confidence interval
- for the observed excess return via bootstrap resampling.
+ for the observed excess return via bootstrap resampling.  Can write summary
+of output to a file as a latex figure.
 }
 \usage{
 nullModel(x, model = "stationaryBootstrap", userParams = 0, nSamples = 100, 
 ttr = "macd4", params = 0, burn = 0, short = FALSE, silent = TRUE, loud = TRUE, 
-alpha = 0.025, TC = 0.001, benchmark = "hold")
+alpha = 0.025, TC = 0.001, benchmark = "hold", latex = "")
 }
 %- maybe also 'usage' for other objects documented here.
 \arguments{
@@ -62,6 +63,10 @@ When computing 'excess' returns, all functions in this package
  subtract the conditional returns based on a given "ttr" from
  the "benchmark" returns.  Two different TTRs can be compared
  this way if desired.
+}
+\item{latex}{
+Full path name for a writable file.  The laTeX code that generates a
+figure with a summary of the output will be appended to file.
 }
 }
 \value{

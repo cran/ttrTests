@@ -10,7 +10,7 @@ Gives returns conditioned on the TTR above and beyond some benchmark.
 }
 \usage{
 returnStats(x, ttr = "macd4", params = 0, burn = 0, short = FALSE, 
-silent = FALSE, TC = 0.001, benchmark = "hold")
+silent = FALSE, TC = 0.001, benchmark = "hold", latex="")
 }
 \arguments{
   \item{x}{
@@ -43,6 +43,10 @@ When computing 'excess' returns, all functions in this package
  subtract the conditional returns based on a given "ttr" from
  the "benchmark" returns.  Two different TTRs can be compared
  this way if desired.
+}
+\item{latex}{
+Full path name for a writable file.  The laTeX code that generates a
+figure with a summary of the output will be appended to file.
 }
 }
 \details{

@@ -48,6 +48,11 @@ Statistical Association 89, 1303-1313.
 \author{
 David St John
 }
+\note{
+A USER DEFINED MODEL MUST HAVE THE FOLLOWING FORM:
+function ( x , userParams )
+Where x is the data, userParams is a numeric vector.
+}
 \examples{
 
 spData <- as.vector(getYahooData("SPY",start="20060101",end="20081231")[,"Close"])

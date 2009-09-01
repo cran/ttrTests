@@ -1,19 +1,20 @@
-\name{realityCheck}
+\name{dataSnoop}
 \Rdversion{1.1}
-\alias{realityCheck}
+\alias{dataSnoop}
 \title{
-White's Reality Check
+Two Tests for Data Snooping: RC and SPA
 }
 \description{
 Tests for data snooping bias by doing bootstrap resampling, then
 finding the best parameterization in the bootstrapped samples and
-computing a confidence interval for the best observed conditional mean.
-Evaluates past performance only (no prediction, see notes).
+performing one of two popular tests - White's Reality Check or
+Hansen's test for Superior Predictive Ability.  Can write a summary
+of results to a file as a LaTeX figure.
 }
 \usage{
-realityCheck(x, ttr = "macd4", start = 0, nSteps = 0, stepSize = 0, burn = 0, 
+dataSnoop(x, ttr = "macd4", start = 0, nSteps = 0, stepSize = 0, burn = 0, 
 short = FALSE, silent = TRUE, TC = 0.001, loud = TRUE, alpha = 0.025, begin = 1, 
-percent = 1, file = "", benchmark = "hold", bSamples = 100)
+percent = 1, file = "", benchmark = "hold", bSamples = 100, test="SPA",latex="")
 }
 \arguments{
   \item{x}{
@@ -74,27 +75,32 @@ When computing 'excess' returns, all functions in this package
   \item{bSamples}{
 Number of bootstrapped samples to analyze
 }
+  \item{test}{
+Supports "RC" which is White's Reality Check, or "SPA", which
+is Hansen's test for Superior Predictive Ability
 }
-
+\item{latex}{
+Full path name for a writable file.  The laTeX code that generates a
+figure with a summary of the output will be appended to file.
+}
+}
 \value{
-\item{ par1 }{Returned from 'paramStats' using the original data}
-\item{ V }{Observed 'best' value from bootstrapped samples}
-\item{ Vi }{observed 'best' value from original data}
-\item{ z }{Z-value for observed 'Vi'}
-\item{ p }{corresponding p-value for observed z} 
-%% ...
+Returns the P-value or values from the given test.
 }
 
 \references{
 Ryan Sullivan, Allan Timmermann, and Halbert White. Data snooping,
 technical trading rule performance, and the bootstrap. The Journal of
 Finance, 54(5):1647-1691, 1999.
+
+Peter R. Hansen.  A Test for Superior Predictive Ability.  Jounal of
+Business and Economic Statistics, 2005.
 }
 \author{
 David St John
 }
 \note{
-See papers by White et. al. for details on the 'V' values
+See papers for details on the 'V' values an 'T' values
 
 If p-value is significant, then the null hypothesis that good
 performance is due to data snooping is rejected.  However, this
@@ -114,7 +120,8 @@ solely at the risk of the end user.
 \examples{
 
 spData <- as.vector(getYahooData("SPY",start="20060101",end="20081231")[,"Close"])
-rc <- realityCheck(spData,bSamples=5)
+rc <- dataSnoop(spData,bSamples=5,test="RC")
+spa <- dataSnoop(spData,bSamples=5,test="SPA")
 
 }
 
