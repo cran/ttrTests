@@ -1,5 +1,5 @@
 \name{cReturns}
-\Rdversion{1.1}
+\Rdversion{1.2}
 \alias{cReturns}
 \title{
 Return series conditioned on a TTR

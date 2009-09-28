@@ -1,5 +1,5 @@
 \name{ttrTests-package}
-\Rdversion{1.1}
+\Rdversion{1.2}
 \alias{ttrTests-package}
 \alias{ttrTests}
 \docType{package}
@@ -61,10 +61,11 @@ sample' confirmation.  If this test fails, it means that regardless of
 how significant the performance of a TTR was, we cannot count on any
 choice of parameters to consistently perform well.
 
-This most recent version allows the results of these tests to be written
+Version >= 1.1 allows the results of these tests to be written
 to a file in LaTeX code as a figure.  It also includes two tests for data
 snooping, White's Reality Check and Hansen's test for Superior Predictive
-Ability, the later not included in the first version.
+Ability, the later not included in the first version.  Version >= 1.2
+fixes some minor glitches in 1.1.
 }
 \author{
 David St John

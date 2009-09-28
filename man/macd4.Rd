@@ -1,5 +1,5 @@
 \name{macd4}
-\Rdversion{1.1}
+\Rdversion{1.2}
 \alias{macd4}
 \title{
 MACD oscillator

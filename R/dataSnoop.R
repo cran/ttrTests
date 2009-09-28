@@ -109,7 +109,7 @@ else if(test=="SPA") {
 		cat("\\begin{tabular}{ c c c c c c}\n",file=latex,append=TRUE)
 		cat("from & by & steps & total size & best choice & p-value \\\\ \\hline \n",file=latex,append=TRUE)
 		if(max(p1,p2,p3)<alpha) cat(start," &",stepSize," &",nSteps," &",prod(nSteps)," &",sBest," &",max(p1,p2,p3),"*** \\\\ \n",file=latex,append=TRUE)
-		else cat(start," &",stepSize," &",nSteps," &",prod(nSteps)," &",sBest," &",p," \\\\ \n",file=latex,append=TRUE)
+		else cat(start," &",stepSize," &",nSteps," &",prod(nSteps)," &",sBest," &",max(p1,p2,p3)," \\\\ \n",file=latex,append=TRUE)
 		cat("\\end{tabular}\n",file=latex,append=TRUE)
 		if(max(p1,p2,p3)<alpha) cat("\\caption{Max P-value from SPA significant for alpha =",alpha,"}\n",file=latex,append=TRUE)
 		else cat("\\caption{Max P-value from SPA not significant for alpha =",alpha,"}\n",file=latex,append=TRUE)

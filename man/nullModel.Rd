@@ -1,5 +1,5 @@
 \name{nullModel}
-\Rdversion{1.1}
+\Rdversion{1.2}
 \alias{nullModel}
 \title{
 Hypothesis test for efficacy of TTR
@@ -10,7 +10,7 @@ One of the four main functions in the package.  Creates a confidence interval
 of output to a file as a latex figure.
 }
 \usage{
-nullModel(x, model = "stationaryBootstrap", userParams = 0, nSamples = 100, 
+nullModel(x, model = "stationaryBootstrap", userParams = 4, nSamples = 100, 
 ttr = "macd4", params = 0, burn = 0, short = FALSE, silent = TRUE, loud = TRUE, 
 alpha = 0.025, TC = 0.001, benchmark = "hold", latex = "")
 }

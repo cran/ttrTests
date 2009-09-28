@@ -1,5 +1,5 @@
 \name{position}
-\Rdversion{1.1}
+\Rdversion{1.2}
 \alias{position}
 \title{
 Position Function

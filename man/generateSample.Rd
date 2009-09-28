@@ -1,5 +1,5 @@
 \name{generateSample}
-\Rdversion{1.1}
+\Rdversion{1.2}
 \alias{generateSample}
 \title{
 Generates a Bootstrap Sample
@@ -12,7 +12,7 @@ Given a data set, this function returns a randomly generated data set
  for example ARIMA or GARCH, a user defined function can be input.
 }
 \usage{
-generateSample(x, model = "stationaryBootstrap", userParams = 0)
+generateSample(x, model = "stationaryBootstrap", userParams = 4)
 }
 \arguments{
   \item{x}{
@@ -26,7 +26,9 @@ Currently built in choices are "bootstrap" and "stationaryBootstrap".
   \item{userParams}{
 Will be passed to the function 'model', in the case that 'model' is
  a user defined function.  Hence, a user defined function should take 
- two parameters, the data and a list of other needed inputs
+ two parameters, the data and a list of other needed inputs.
+If "stationaryBootstrap" is used, userParams is the average block
+ length from a geometric distribution, i.e. (1/lambda).
 }
 }
 \details{

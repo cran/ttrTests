@@ -1,5 +1,5 @@
 generateSample <-
-function(x,model="stationaryBootstrap",userParams=0)
+function(x,model="stationaryBootstrap",userParams=4)
 
 ## Creates sample data of the same length as 'x'
 ## From a given model, where parameters
@@ -37,7 +37,7 @@ else if(model=="stationaryBootstrap")
 
 ## Stationary Block Bootstrap Model:
 ## r(k),...,r(k+l) block selected
-## l geometric {0,1,...} with mean 4
+## l geometric {0,1,...} with default mean 'userparams' 
 ## k selected with probability 1/(n-l)
 ## selected with replacement
 
@@ -45,8 +45,9 @@ else if(model=="stationaryBootstrap")
 	returns[length(x)] <- 0
 	n <- length(returns)
 	sample <- 0
-	sam <- rgeom(floor(n/2),0.25)
-	while(sum(sam)<n) sam <- rgeom(floor(n/2),0.25)
+	gParam <- as.double(1/userParams)
+	sam <- rgeom(floor(n/2),gParam)
+	while(sum(sam)<n) sam <- rgeom(floor(n/2),gParam)
 	sample[1] <- x[1]
 	count <- 1
 	done <- 1

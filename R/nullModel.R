@@ -1,5 +1,5 @@
 nullModel <-
-function(x,model="stationaryBootstrap",userParams=0,nSamples=100,ttr="macd4",params=0,burn=0,short=FALSE,silent=TRUE,loud=TRUE,alpha=0.025,TC=0.001,benchmark="hold",latex="")
+function(x,model="stationaryBootstrap",userParams=4,nSamples=100,ttr="macd4",params=0,burn=0,short=FALSE,silent=TRUE,loud=TRUE,alpha=0.025,TC=0.001,benchmark="hold",latex="")
 
 ## For a data set whose conditional mean is significant
 ## When using TTR to identify a subset,
