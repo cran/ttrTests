@@ -1,5 +1,5 @@
 dataSnoop <-
-function(x,ttr="macd4",start=0,nSteps=0,stepSize=0,burn=0,short=FALSE,silent=TRUE,TC=0.001,loud=TRUE,alpha=0.025,begin=1,percent=1,file="",benchmark="hold",bSamples=100,test="SPA",latex="")
+function(x,ttr="macd4",start=0,nSteps=0,stepSize=0,burn=0,short=FALSE,condition=NULL,silent=TRUE,TC=0.001,loud=TRUE,alpha=0.025,begin=1,percent=1,file="",benchmark="hold",bSamples=100,test="SPA",latex="")
 {
 
 V <- 0
@@ -7,7 +7,7 @@ V1 <- 0
 V2 <- 0
 V3 <- 0
 
-par1 <- paramStats(x,ttr=ttr,start=start,nSteps=nSteps,stepSize=stepSize,burn=burn,short=short,silent=silent,TC=TC,loud=loud,alpha=alpha,begin=begin,percent=percent,file=file,benchmark=benchmark)
+par1 <- paramStats(x,ttr=ttr,start=start,nSteps=nSteps,stepSize=stepSize,burn=burn,short=short,condition=condition,silent=silent,TC=TC,loud=loud,alpha=alpha,begin=begin,percent=percent,file=file,benchmark=benchmark)
 omega <- par1[[1]]/par1[[4]]
 rBest <- par1[[5]]
 sBest <- par1[[6]]
@@ -24,7 +24,7 @@ then <- timeDate()
 for(counter in 1:bSamples)
 	{
 	sam <- generateSample(x)
-	par <- paramStats(sam,ttr=ttr,start=start,nSteps=nSteps,stepSize=stepSize,burn=burn,short=short,silent=TRUE,TC=TC,loud=FALSE,plot=FALSE,alpha=alpha,begin=begin,percent=percent,file=file,benchmark=benchmark)
+	par <- paramStats(sam,ttr=ttr,start=start,nSteps=nSteps,stepSize=stepSize,burn=burn,short=short,condition=condition,silent=TRUE,TC=TC,loud=FALSE,plot=FALSE,alpha=alpha,begin=begin,percent=percent,file=file,benchmark=benchmark)
 	if(counter>5) if( floor(10*counter/bSamples) > floor(10*(counter-1)/bSamples) ) {
 		if(loud) cat(10*floor(10*counter/bSamples),"% ")	
 		flush.console() }
@@ -69,14 +69,13 @@ if(! latex=="") {
 if(test=="RC") {
 	if(loud) cat("\nMean and Var of Bootstrapped V:",mean(V),var(V),"\n")
 	z <- (Vi - mean(V))/sqrt(var(V))
-	p <- ifelse(z>0,1-pnorm(z),pnorm(z))
+	p <- ifelse(z>0,1-pt(z,df=bSamples),pt(z,df=bSamples))
 	if(loud) cat("Estimated Z and P-Value for Observed V:",z,p,"\n")
 	
 	if(! latex=="")
 		{
-		cat("\n\\begin{figure}[h]\n",file=latex,append=TRUE)
+		cat("\n\\begin{figure}[htp]\n",file=latex,append=TRUE)
 		cat("\\centering\n",file=latex,append=TRUE)
-		cat("\\title{Bootstrap Data Snooper for TTR:",ttr,"}\n",file=latex,append=TRUE)
 		cat("\\begin{tabular}{ c c c c c c}\n",file=latex,append=TRUE)
 		cat("from & by & steps & total size & best choice & p-value \\\\ \\hline \n",file=latex,append=TRUE)
 		if(p<alpha) cat(start," &",stepSize," &",nSteps," &",prod(nSteps)," &",rBest," &",p,"*** \\\\ \n",file=latex,append=TRUE)
@@ -88,7 +87,7 @@ if(test=="RC") {
 		if(loud) cat("\n Results written as latex figure to file:",latex,"\n")
 	}
 
-	ifelse(z>0,1-pnorm(z),pnorm(z)) 
+	ifelse(z>0,1-pt(z,df=bSamples),pt(z,df=bSamples)) 
 
 }
 else if(test=="SPA") {
@@ -103,9 +102,8 @@ else if(test=="SPA") {
 	
 	if(! latex=="")
 		{
-		cat("\n\\begin{figure}[h]\n",file=latex,append=TRUE)
+		cat("\n\\begin{figure}[htp]\n",file=latex,append=TRUE)
 		cat("\\centering\n",file=latex,append=TRUE)
-		cat("\\title{Bootstrap Data Snooper for TTR:",ttr,"}\n",file=latex,append=TRUE)
 		cat("\\begin{tabular}{ c c c c c c}\n",file=latex,append=TRUE)
 		cat("from & by & steps & total size & best choice & p-value \\\\ \\hline \n",file=latex,append=TRUE)
 		if(max(p1,p2,p3)<alpha) cat(start," &",stepSize," &",nSteps," &",prod(nSteps)," &",sBest," &",max(p1,p2,p3),"*** \\\\ \n",file=latex,append=TRUE)

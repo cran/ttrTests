@@ -1,18 +1,18 @@
-\name{paramStats}
+\name{subperiods}
 \Rdversion{1.3}
-\alias{paramStats}
+\alias{subperiods}
 \title{
-Analyzes a domain of parameter choices to pick the best one
+Computes the Correlation between Conditional Returns in Two Non-Overlapping Sub-Periods
 }
 \description{
-This function calls the 'returnStats' function with every choice
-of parameters in a given domain and records the result.  This allows
-'good' choices for parameters to be identified.
+This function computes the conditional returns for each parameterization of a given TTR in a given domain for each of subperiod in a given data set.
+The correlation is then computed between the results in each pair of sub-periods.  This is a measure of the persistence, or robustness, of the parameter choices
+for a given TTR.
 }
 \usage{
-paramStats(x, ttr = "macd4", start = 0, nSteps = 0, stepSize = 0, 
+subperiods(x, ttr = "macd4", start = 0, nSteps = 0, stepSize = 0, 
 restrict = FALSE, burn = 0, short = FALSE, condition = NULL, silent = TRUE, TC = 0.001, loud = TRUE, 
-plot = TRUE, alpha = 0.025, begin = 1, percent = 1, file = "", benchmark = "hold")
+plot = TRUE, alpha = 0.05, periods = 0, file = "", latex = "", benchmark = "hold")
 }
 %- maybe also 'usage' for other objects documented here.
 \arguments{
@@ -66,17 +66,16 @@ Logical.  If FALSE, supresses plot of results by parameter choice.
   \item{alpha}{
 Confidence level for 2-sided hypothesis testing
 }
-  \item{begin}{
-The starting index of the data.  The function assumes that the
- user wants a subset of the data, where the default subset
- is the entire data
-}
-  \item{percent}{
-How much of the original data to use (default 100%)
+  \item{periods}{
+How many subperiods into which the function will divide the data.
 }
   \item{file}{
 The full writable path string for a file to which output
  will be appended.  Ideal for reviewing results.
+}
+\item{latex}{
+Full path name for a writable file.  The laTeX code that generates a
+figure with a summary of the output will be appended to file.
 }
   \item{benchmark}{
 When computing 'excess' returns, all functions in this package
@@ -115,15 +114,10 @@ If restrict = FALSE, no such adjustment will be made to the choice of
 domain for parameters.
 }
 \value{
-Output is a list of vectors.  When read as a matrix, each row containts:
- The conditional mean return
- The z-socre of this amongst all parameter choices
- The adjusted return (after trading costs)
- The Sharpe ratio
- (The best choice of parameters, as a vector.  Not part of the overall matrix)
- The parameters
- 
-For a unique choice of parameters
+Output is a list containing:
+  The observed covariance
+  The observed correlation coefficient
+  The raw ordered pair data used to measure these
 }
 \references{
 Ryan Sullivan, Allan Timmermann, and Halbert White. Data snooping,
@@ -134,8 +128,6 @@ Finance, 54(5):1647-1691, 1999.
 David St John
 }
 \note{
-Of all parameter choices, the 'best' is used for the function 'dataSnoop'
-
 EXTREMELY IMPORTANT NOTE: The functions in this package evaluate past 
 performance only.  No warranty is made that the results of these tests should, 
 or even can, be used to inform business decisions or make predictions of 
@@ -149,10 +141,10 @@ solely at the risk of the end user.
 \examples{
 
 spData <- as.vector(getYahooData("SPY",start="20060101",end="20081231")[,"Close"])
-ps <- paramStats(spData)
+sp <- subperiods(spData)
 
-max(ps[[1]])
-max(ps[[2]])
+sp[[1]]
+sp[[2]]
 
 }
 

@@ -1,5 +1,5 @@
 indicator <-
-function(x,ttr="macd4",params=0,burn=0,short=FALSE)
+function(x,ttr="macd4",params=0,burn=0,short=FALSE,condition=NULL)
 
 ## Returns a series 'y' for which:
 ##
@@ -11,7 +11,7 @@ function(x,ttr="macd4",params=0,burn=0,short=FALSE)
 ##
 ## computed as the first difference of the 'position' function
 
-{ pos <- position(x=x,ttr=ttr,params=params,burn=burn,short=short)
+{ pos <- position(x=x,ttr=ttr,params=params,burn=burn,short=short,condition=condition)
 t <- length(pos)
 ind <- 0
 for(k in 1:(t-1)) ind[t-k] <- pos[t-k+1]-pos[t-k]

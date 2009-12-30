@@ -1,5 +1,5 @@
 \name{returnStats}
-\Rdversion{1.2}
+\Rdversion{1.3}
 \alias{returnStats}
 \title{
 Conditional statistics for given data and TTR
@@ -10,7 +10,7 @@ Gives returns conditioned on the TTR above and beyond some benchmark.
 }
 \usage{
 returnStats(x, ttr = "macd4", params = 0, burn = 0, short = FALSE, 
-silent = FALSE, TC = 0.001, benchmark = "hold", latex="")
+condition = NULL, silent = FALSE, TC = 0.001, benchmark = "hold", latex="")
 }
 \arguments{
   \item{x}{
@@ -31,6 +31,11 @@ When computing the position function s(t), values for t < burn
   \item{short}{
 Logical.  If false the position function s(t) will be forced to
  0 when it would otherwise be -1, i.e. no short selling
+}
+  \item{condition}{
+An extra opportunity to restrict the TTR so that position is forced
+to 0 under some condition.  Must be a binary string of the same
+length as the data 'x'.  See 'position' for more details.
 }
   \item{silent}{
 Logical.  If TRUE, supresses output from subroutines

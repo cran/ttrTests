@@ -1,5 +1,5 @@
 \name{position}
-\Rdversion{1.2}
+\Rdversion{1.3}
 \alias{position}
 \title{
 Position Function
@@ -9,7 +9,8 @@ Obsoleted by 'indicator' function, but called from there so
 must be included in the package.
 }
 \usage{
-position(x, ttr = "macd4", params = 0, burn = 0, short = FALSE)
+position(x, ttr = "macd4", params = 0, burn = 0, short = FALSE,
+condition = NULL)
 }
 \arguments{
 
@@ -34,7 +35,11 @@ When computing the position function s(t), values for t < burn
 Logical.  If false the position function s(t) will be forced to
  0 when it would otherwise be -1, i.e. no short selling
 }
-
+  \item{condition}{
+An extra opportunity to restrict the TTR so that position is forced
+to 0 under some condition.  Must be a binary string of the same
+length as the data 'x'.  See notes for more details.
+}
 }
 \value{
 Value returned to function 'indicator' is returned as 'pos'
@@ -44,7 +49,13 @@ Value returned to function 'indicator' is returned as 'pos'
 \author{
 David St John
 }
-
+\note{
+The user-supplied 'Condition' series should be zero during any time 
+period when there should not be any position, and one otherwise.  
+If none is given, a string of all ones is default.  Such a restriction 
+could be no positions held during certain times or any other external
+condition.
+}
 \examples{
 
 }

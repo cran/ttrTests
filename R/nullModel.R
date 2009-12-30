@@ -1,5 +1,5 @@
 nullModel <-
-function(x,model="stationaryBootstrap",userParams=4,nSamples=100,ttr="macd4",params=0,burn=0,short=FALSE,silent=TRUE,loud=TRUE,alpha=0.025,TC=0.001,benchmark="hold",latex="")
+function(x,model="stationaryBootstrap",userParams=4,nSamples=100,ttr="macd4",params=0,burn=0,short=FALSE,condition=NULL,silent=TRUE,loud=TRUE,alpha=0.025,TC=0.001,benchmark="hold",latex="")
 
 ## For a data set whose conditional mean is significant
 ## When using TTR to identify a subset,
@@ -15,7 +15,7 @@ function(x,model="stationaryBootstrap",userParams=4,nSamples=100,ttr="macd4",par
 ##      such as autocorrelation or conditional heteroskedasticity
 ##
 { 
-	stat <- returnStats(x=x,ttr=ttr,params=params,burn=burn,short=short,silent=silent,TC=TC,benchmark=benchmark)
+	stat <- returnStats(x=x,ttr=ttr,params=params,burn=burn,short=short,condition=condition,silent=silent,TC=TC,benchmark=benchmark)
 
 	
 	if(! is.ts(x)) if(! is.vector(x)) {
@@ -67,7 +67,7 @@ function(x,model="stationaryBootstrap",userParams=4,nSamples=100,ttr="macd4",par
 				if(loud) cat(10*floor(10*k/nSamples),"% ")
 				flush.console() }
 			sample <- generateSample(x=x,model=model,userParams=userParams)
-			stat <- returnStats(sample,ttr=ttr,params=params,burn=burn,short=short,silent=silent,TC=TC,benchmark=benchmark)
+			stat <- returnStats(sample,ttr=ttr,params=params,burn=burn,short=short,condition=condition,silent=silent,TC=TC,benchmark=benchmark)
 	## ##			Z[k] <- stat[,3][1]
 	## ##			P[k] <- stat[,3][2]
 			CR[k] <- stat[[2]][1]
@@ -102,21 +102,20 @@ function(x,model="stationaryBootstrap",userParams=4,nSamples=100,ttr="macd4",par
 		if(loud) cat("Variance of excess return:",var(ER),"\n")
 	## ##		if(loud) cat("Theoretical Variance:",subsetVar(diff(log(x)),floor(mean(subSize))),"\n")
 		Z <- (ERA-mean(ER))/sqrt(var(ER))
-		P <- ifelse(Z>0,1-pnorm(Z),pnorm(Z))
+		P <- ifelse(Z>0,1-pt(Z,df=nSamples),pt(Z,df=nSamples))
 		if(loud) cat("\nZ-score and P-value for Observed Excess Return:",Z,P,"\n")
 		
 	if(! latex=="")
 		{
-		cat("\n\\begin{figure}[h]\n",file=latex,append=TRUE)
+		cat("\n\\begin{figure}[htp]\n",file=latex,append=TRUE)
 		cat("\\centering\n",file=latex,append=TRUE)
-		cat("\\title{Observed Excess Return versus Estimates from Random Samples}\n",file=latex,append=TRUE)
 		cat("\\begin{tabular}{ c c c c c }\n",file=latex,append=TRUE)
 		cat("mean & std dev & observed & z-score & p-value \\\\ \\hline \n",file=latex,append=TRUE)
 		if(P<alpha) cat(mean(ER)," &",sqrt(var(ER))," &",ERA," &",Z," &",P,"*** \\\\ \n",file=latex,append=TRUE)
 		else cat(mean(ER)," &",sqrt(var(ER))," &",ERA," &",Z," &",P," \\\\ \n",file=latex,append=TRUE)
 		cat("\\end{tabular}\n",file=latex,append=TRUE)
-		if(P<alpha) cat("\\caption{Random Samples from Model:",model," P-value significant for alpha =",alpha,"}\n",file=latex,append=TRUE)
-		else cat("\\caption{Random Samples from Model:",model,".  P-value not significant for alpha =",alpha,"}\n",file=latex,append=TRUE)
+		if(P<alpha) cat("\\caption{Observed Excess Returns from Model:",model," P-value significant for alpha =",alpha,"}\n",file=latex,append=TRUE)
+		else cat("\\caption{Observed Excess Returns from Model:",model,".  P-value not significant for alpha =",alpha,"}\n",file=latex,append=TRUE)
 		cat("\\end{figure}\n",file=latex,append=TRUE)
 		if(loud) cat("\n Results written as latex figure to file:",latex,"\n")
 	}

@@ -1,5 +1,5 @@
 \name{cReturns}
-\Rdversion{1.2}
+\Rdversion{1.3}
 \alias{cReturns}
 \title{
 Return series conditioned on a TTR
@@ -12,7 +12,8 @@ For a series x(t) and a given TTR, computes
    i.e. s(t) = 1 for long, -1 for short, 0 for neutral
 }
 \usage{
-cReturns(x, ttr = "macd4", params = 0, burn = 0, short = FALSE, TC = 0.001)
+cReturns(x, ttr = "macd4", params = 0, burn = 0, short = FALSE, 
+condition = NULL, TC = 0.001)
 }
 \arguments{
   \item{x}{
@@ -36,7 +37,11 @@ When computing the position function s(t), values for t < burn
 Logical.  If false the position function s(t) will be forced to
  0 when it would otherwise be -1, i.e. no short selling
 }
-
+  \item{condition}{
+An extra opportunity to restrict the TTR so that position is forced
+to 0 under some condition.  Must be a binary string of the same
+length as the data 'x'.  See 'position' for more details.
+}
   \item{TC}{
 Trading cost, as a percentage.  Used to compute an adjusted average
  return.

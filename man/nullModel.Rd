@@ -1,5 +1,5 @@
 \name{nullModel}
-\Rdversion{1.2}
+\Rdversion{1.3}
 \alias{nullModel}
 \title{
 Hypothesis test for efficacy of TTR
@@ -11,7 +11,7 @@ of output to a file as a latex figure.
 }
 \usage{
 nullModel(x, model = "stationaryBootstrap", userParams = 4, nSamples = 100, 
-ttr = "macd4", params = 0, burn = 0, short = FALSE, silent = TRUE, loud = TRUE, 
+ttr = "macd4", params = 0, burn = 0, short = FALSE, condition = NULL, silent = TRUE, loud = TRUE, 
 alpha = 0.025, TC = 0.001, benchmark = "hold", latex = "")
 }
 %- maybe also 'usage' for other objects documented here.
@@ -45,7 +45,11 @@ When computing the position function s(t), values for t < burn
 Logical.  If false the position function s(t) will be forced to
  0 when it would otherwise be -1, i.e. no short selling
 }
-
+  \item{condition}{
+An extra opportunity to restrict the TTR so that position is forced
+to 0 under some condition.  Must be a binary string of the same
+length as the data 'x'.  See 'position' for more details.
+}
   \item{silent}{
 Logical.  If TRUE, output from subroutines will be supressed.
 }

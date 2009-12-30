@@ -1,5 +1,5 @@
 \name{ttrTests-package}
-\Rdversion{1.2}
+\Rdversion{1.3}
 \alias{ttrTests-package}
 \alias{ttrTests}
 \docType{package}
@@ -13,8 +13,8 @@ Contains four major tests supported by other functions: Did the TTR strategy out
 \tabular{ll}{
 Package: \tab ttrTests\cr
 Type: \tab Package\cr
-Version: \tab 1.2\cr
-Date: \tab 2009-09-01\cr
+Version: \tab 1.3\cr
+Date: \tab 2009-12-30\cr
 License: \tab GPL\cr
 LazyLoad: \tab yes\cr
 }
@@ -64,8 +64,14 @@ choice of parameters to consistently perform well.
 Version >= 1.1 allows the results of these tests to be written
 to a file in LaTeX code as a figure.  It also includes two tests for data
 snooping, White's Reality Check and Hansen's test for Superior Predictive
-Ability, the later not included in the first version.  Version >= 1.2
-fixes some minor glitches in 1.1.
+Ability, the later not included in the first version.  
+
+Version >= 1.2 fixes some minor glitches in 1.1.
+
+version >= 1.3 uses a different algorithm to compute the statistical
+significance of the observed correlation from test (4).  Some new functions
+have been added to accomplish this.  An option for the position/indicator
+functions was added to increase flexibility.  Other minor changes here and there.
 }
 \author{
 David St John
@@ -142,6 +148,6 @@ spData <- as.vector(getYahooData("SPY",start="20060101",end="20081231")[,"Close"
 
 stat <- returnStats(spData)
 null <- nullModel(spData,nSamples=5)
-spa <- dataSnoop(spData,bSamples=5)
-pp <- paramPersist(spData)
+spa <- dataSnoop(spData,bSamples=3)
+pp <- paramPersist(spData,bSamples=3)
 }

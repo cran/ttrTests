@@ -1,5 +1,5 @@
 returnStats <-
-function(x,ttr="macd4",params=0,burn=0,short=FALSE,silent=FALSE,TC=0.001,benchmark="hold",latex="")
+function(x,ttr="macd4",params=0,burn=0,short=FALSE,condition=NULL,silent=FALSE,TC=0.001,benchmark="hold",latex="")
 
 ## Computes summary statistics for the return series
 
@@ -12,9 +12,9 @@ y <- as.vector(y)
 }
 else y <- x
 
-uRet1 <- cReturns(x=x,ttr=benchmark,params=params,burn=burn,short=short,TC=TC)
+uRet1 <- cReturns(x=x,ttr=benchmark,params=params,burn=burn,short=short,condition=condition,TC=TC)
 uRet <- uRet1[[1]]
-cRet1 <- cReturns(x=x,ttr=ttr,params=params,burn=burn,short=short,TC=TC)
+cRet1 <- cReturns(x=x,ttr=ttr,params=params,burn=burn,short=short,condition=condition,TC=TC)
 cRet <- cRet1[[1]]
 aMean <- cRet[[2]]
 uResults <- 0
@@ -99,7 +99,7 @@ if(! latex=="") cat("\n Results written to file:",latex,"as latex figure\n")
 
 if(! latex=="")
 {
-cat("\n\\begin{figure}[h]\n",file=latex,append=TRUE)
+cat("\n\\begin{figure}[htp]\n",file=latex,append=TRUE)
 cat("\\centering\n",file=latex,append=TRUE)
 cat("\\begin{tabular}{ r | c c c c c }\n",file=latex,append=TRUE)
 cat(" & n & mean & std dev & skew & kurtosis \\\\ \\hline \n",file=latex,append=TRUE)

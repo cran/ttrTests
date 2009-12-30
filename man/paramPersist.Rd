@@ -1,19 +1,20 @@
 \name{paramPersist}
-\Rdversion{1.2}
+\Rdversion{1.3}
 \alias{paramPersist}
 \title{
 Robustness, or Persistence, of Parameter Choices for TTR
 }
 \description{
-Divides the given data set into subperiods and computes the relative
- performance of several different parameterizations of the TTR
- in each subperiod.  These are checked for correlation using
- standard linear regression.
+Divides the given data set into 2 subperiods and computes the correlation
+coefficient using a call to the 'subperiods' function.  A p-value  for the
+null hypothesis that there is no correlation in the underlying distribution
+is given using the bootstrapping procedure. 
 }
 \usage{
-paramPersist(x, ttr = "macd4", start = 0, nSteps = 0, stepSize = 0, 
-burn = 0, short = FALSE, silent = TRUE, TC = 0.001, loud = TRUE, plot = TRUE,
-alpha = 0.05, periods = 0, file = "", latex = "")
+paramPersist(x, ttr = "macd4", start = 0, nSteps = 0, stepSize = 0, restrict = FALSE,
+bSamples = 25, model = "stationaryBootstrap", userParams = 4, 
+burn = 0, short = FALSE, condition = NULL, silent = TRUE, TC = 0.001, 
+loud = TRUE, plot = TRUE, alpha = 0.05, periods = 2, file = "", latex = "")
 }
 %- maybe also 'usage' for other objects documented here.
 \arguments{
@@ -34,6 +35,20 @@ How many parameter choices to use for each parameter
   \item{stepSize}{
 The difference between successive choices of a parameter.
 }
+  \item{restrict}{
+If restricted = TRUE, this will force the second parameter
+(and 4th, if applicable) to be strictly greater than the first (3rd, resp.)
+This is sensible if the pairs are moving average parameters.
+}
+  \item{bSamples}{
+How many bootstrapped samples to generate
+}
+  \item{model}{
+Passed to the function 'generateSample'
+}
+  \item{userParams}{
+Passed to the function 'generateSample'
+}
   \item{burn}{
 When computing the position function s(t), values for t < burn
  will be forced to 0, i.e. no position held during the 'burn' period
@@ -41,6 +56,11 @@ When computing the position function s(t), values for t < burn
   \item{short}{
 Logical.  If false the position function s(t) will be forced to
  0 when it would otherwise be -1, i.e. no short selling
+}
+  \item{condition}{
+An extra opportunity to restrict the TTR so that position is forced
+to 0 under some condition.  Must be a binary string of the same
+length as the data 'x'.  See 'position' for more details.
 }
   \item{silent}{
 Logical.  If TRUE, supresses output from subroutines
@@ -75,11 +95,8 @@ See the help file for 'paramStats' for important information about
 using "start,nSteps,stepSize" to define a domain of parameters
 }
 \value{
-Output is a list of outputs from the subroutine "paramStats".  Each
-list item contains, when read as a matrix, the results from each choice
-of parameters in their respective subsets, one choice per row.
-
-Last item in output list is the regression resulst, and object of type 'glm'
+Output is a list containing the observed correlation coefficient,
+the z-score and p-value.
 }
 \references{
 This test was invented by the author to the best of his knowledge.
@@ -88,6 +105,10 @@ This test was invented by the author to the best of his knowledge.
 David St John
 }
 \note{
+This procedure is very computationally intensive and requires a lot
+of resources for large data sets and large numbers of bootstrapped
+samples.
+
 EXTREMELY IMPORTANT NOTE: The functions in this package evaluate past 
 performance only.  No warranty is made that the results of these tests should, 
 or even can, be used to inform business decisions or make predictions of 
@@ -101,9 +122,9 @@ solely at the risk of the end user.
 \examples{
 
 spData <- as.vector(getYahooData("SPY",start="20060101",end="20081231")[,"Close"])
-pp <- paramPersist(spData)
+pp <- paramPersist(spData,bSamples=3)
 
-summary(pp[[length(pp)]])
+pp
 
 }
 

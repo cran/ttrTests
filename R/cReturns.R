@@ -1,5 +1,5 @@
 cReturns <-
-function(x,ttr="macd4",params=0,burn=0,short=FALSE,TC=0.001)
+function(x,ttr="macd4",params=0,burn=0,short=FALSE,condition=NULL,TC=0.001)
 
 ## Given data 'x' and a technical trading rule 'ttr'
 ## With parameters 'params'
@@ -14,7 +14,7 @@ function(x,ttr="macd4",params=0,burn=0,short=FALSE,TC=0.001)
 ## ## {
 {
 
-result <- indicator(x=x,ttr=ttr,params=params,burn=burn,short=short)
+result <- indicator(x=x,ttr=ttr,params=params,burn=burn,short=short,condition=condition)
 
 if(! is.ts(x)) if(! is.vector(x)) {
 x <- as.ts(x[,c("Close")])

@@ -1,5 +1,5 @@
 paramStats <-
-function(x,ttr="macd4",start=0,nSteps=0,stepSize=0,restrict=FALSE,burn=0,short=FALSE,silent=TRUE,TC=0.001,loud=TRUE,plot=TRUE,alpha=0.025,begin=1,percent=1,file="",benchmark="hold")
+function(x,ttr="macd4",start=0,nSteps=0,stepSize=0,restrict=FALSE,burn=0,short=FALSE,condition=NULL,silent=TRUE,TC=0.001,loud=TRUE,plot=TRUE,alpha=0.025,begin=1,percent=1,file="",benchmark="hold")
 
 ## Computes conditional return statistics
 ## For each parameterization of TTR in a given domain
@@ -73,7 +73,7 @@ if(length(start)==4)
 	if(loud) if(counter>5) if( floor(10*counter/prod(nSteps)) > floor(10*(counter-1)/prod(nSteps)) ) {
 		cat(10*floor(10*counter/prod(nSteps)),"% ")
 		flush.console() }
-	stat <- returnStats(x=x,ttr=ttr,params=c(m,n,p,q),burn=burn,short=short,silent=TRUE,TC=TC,benchmark=benchmark)
+	stat <- returnStats(x=x,ttr=ttr,params=c(m,n,p,q),burn=burn,short=short,condition=condition,silent=TRUE,TC=TC,benchmark=benchmark)
 	mList[counter] <- m
 	nList[counter] <- n
 	pList[counter] <- p
@@ -140,7 +140,7 @@ else if(length(start)==3)
 	if(loud) if(counter>5) if( floor(10*counter/prod(nSteps)) > floor(10*(counter-1)/prod(nSteps)) ) {
 		cat(10*floor(10*counter/prod(nSteps)),"% ")
 		flush.console() }
-	stat <- returnStats(x=x,ttr=ttr,params=c(m,n,p),burn=burn,short=short,silent=TRUE,TC=TC,benchmark=benchmark)
+	stat <- returnStats(x=x,ttr=ttr,params=c(m,n,p),burn=burn,short=short,condition=condition,silent=TRUE,TC=TC,benchmark=benchmark)
 	mList[counter] <- m
 	nList[counter] <- n
 	pList[counter] <- p
@@ -202,7 +202,7 @@ else if(length(start)==2)
 	if(loud) if(counter>5) if( floor(10*counter/prod(nSteps)) > floor(10*(counter-1)/prod(nSteps)) ) {
 		cat(10*floor(10*counter/prod(nSteps)),"% ")
 		flush.console() }
-	stat <- returnStats(x=x,ttr=ttr,params=c(m,n),burn=burn,short=short,silent=TRUE,TC=TC,benchmark=benchmark)
+	stat <- returnStats(x=x,ttr=ttr,params=c(m,n),burn=burn,short=short,condition=condition,silent=TRUE,TC=TC,benchmark=benchmark)
 	mList[counter] <- m
 	nList[counter] <- n
 	cMean[counter] <- stat[[2]][1]-stat[[1]][1]
@@ -259,7 +259,7 @@ else if(length(start)==1)
 	if(loud) if(counter>5) if( floor(10*counter/prod(nSteps)) > floor(10*(counter-1)/prod(nSteps)) ) {
 		cat(10*floor(10*counter/prod(nSteps)),"% ")
 		flush.console() }
-	stat <- returnStats(x=x,ttr=ttr,params=c(m),burn=burn,short=short,silent=TRUE,TC=TC,benchmark=benchmark)
+	stat <- returnStats(x=x,ttr=ttr,params=c(m),burn=burn,short=short,condition=condition,silent=TRUE,TC=TC,benchmark=benchmark)
 	mList[counter] <- m
 	cMean[counter] <- stat[[2]][1]-stat[[1]][1]
 	## ##	pVal <- stat[[3]][4]

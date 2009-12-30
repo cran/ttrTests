@@ -1,5 +1,5 @@
 \name{dataSnoop}
-\Rdversion{1.2}
+\Rdversion{1.3}
 \alias{dataSnoop}
 \title{
 Two Tests for Data Snooping: RC and SPA
@@ -13,7 +13,7 @@ of results to a file as a LaTeX figure.
 }
 \usage{
 dataSnoop(x, ttr = "macd4", start = 0, nSteps = 0, stepSize = 0, burn = 0, 
-short = FALSE, silent = TRUE, TC = 0.001, loud = TRUE, alpha = 0.025, begin = 1, 
+short = FALSE, condition = NULL, silent = TRUE, TC = 0.001, loud = TRUE, alpha = 0.025, begin = 1, 
 percent = 1, file = "", benchmark = "hold", bSamples = 100, test="SPA",latex="")
 }
 \arguments{
@@ -41,6 +41,11 @@ When computing the position function s(t), values for t < burn
   \item{short}{
 Logical.  If false the position function s(t) will be forced to
  0 when it would otherwise be -1, i.e. no short selling
+}
+  \item{condition}{
+An extra opportunity to restrict the TTR so that position is forced
+to 0 under some condition.  Must be a binary string of the same
+length as the data 'x'.  See 'position' for more details.
 }
   \item{silent}{
 Logical.  If TRUE, supresses output from subroutines
@@ -120,8 +125,8 @@ solely at the risk of the end user.
 \examples{
 
 spData <- as.vector(getYahooData("SPY",start="20060101",end="20081231")[,"Close"])
-rc <- dataSnoop(spData,bSamples=5,test="RC")
-spa <- dataSnoop(spData,bSamples=5,test="SPA")
+rc <- dataSnoop(spData,bSamples=3,test="RC")
+## spa <- dataSnoop(spData,bSamples=3,test="SPA")
 
 }
 

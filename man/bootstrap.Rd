@@ -1,22 +1,18 @@
-\name{generateSample}
+\name{bootstrap}
 \Rdversion{1.3}
-\alias{generateSample}
+\alias{bootstrap}
 \title{
-Generates a Bootstrap Sample from Price Data
+Generates a Bootstrap Sample from Raw Data
 }
 \description{
 Given a data set, this function returns a randomly generated data set
-of the same size using a modified bootstrap procedure.  For now, standard
-(i.i.d.) bootstrapping and Stationary (block) bootstrapping are
-supported.  If random data is desired from other model distributions,
-for example ARIMA or GARCH, a user defined function can be input.
-
-Because it is assumed that we are using price data, this function
-will compute the returns series, bootstrap that series, and exponentiate
-and aggregate back to a price series.
+ of the same size using the bootstrap procedure on the raw data.  For now, standard
+ (i.i.d.) bootstrapping and Stationary (block) bootstrapping are
+ supported.  If random data is desired from other model distributions,
+ for example ARIMA or GARCH, a user defined function can be input.
 }
 \usage{
-generateSample(x, model = "stationaryBootstrap", userParams = 4)
+bootstrap(x, model = "bootstrap", userParams = 4)
 }
 \arguments{
   \item{x}{
@@ -61,14 +57,14 @@ Where x is the data, userParams is a numeric vector.
 }
 \examples{
 
-spData <- as.vector(getYahooData("SPY",start="20060101",end="20081231")[,"Close"])
-mean(diff(log(spData)))
-var(diff(log(spData)))
-plot(spData)
+foo <- runif(100)
+mean(foo)
+var(foo)
+plot(foo)
 
-sample <- generateSample(spData)
-mean(diff(log(sample)))
-var(diff(log(sample)))
+sample <- bootstrap(foo)
+mean(sample)
+var(sample)
 plot(sample)
 
 }
