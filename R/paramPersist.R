@@ -46,17 +46,24 @@ vrr <- var(rhobs)
 ##	z <- (cv-mn)/sqrt(vr)
 ##	p <- ifelse(z>0,1-pt(z,df=bSamples),pt(z,df=bSamples))
 
-zr <- (rho-rmn)/sqrt(vrr)
-pr <- ifelse(zr>0,1-pt(zr,df=bSamples),pt(zr,df=bSamples))
+	zr <- (rho-rmn)/sqrt(vrr)
+	pr <- ifelse(zr>0,1-pt(zr,df=bSamples),pt(zr,df=bSamples))
 
 ##	if(loud) cat("\nObserved z-value and p-score for covariance based on C-Hat =",cv,"\n")
 ##	if(loud) cat("z=",z,"p=",p,"\n")
 
-if(loud) cat("\nObserved z-value and p-score for correlation based on Rho-Hat =",rho,"\n")
-if(loud) cat("z=",zr,"p=",pr,"\n")
+if(loud) cat("\nMean correlation from Bootstrap =",rmn,"\n")
+if(loud) cat("Standard Deviation =",sqrt(vrr),"for",length(rhobs),"observations\n")
+ster <- sqrt(vrr/length(rhobs))
+trh <- rmn/ster
+prh <- ifelse(trh>0,1-pt(trh,df=bSamples),pt(trh,df=bSamples))
+if(loud) cat("Simple t-test for zero correlation in Bootstrap Distribution:",trh,"p-value:",prh,"\n")
 
-if(loud) if(pr<alpha) cat("\nResults significant at level alpha=",alpha,"\n")
-if(loud) if(pr>=alpha) cat("\nResults not significant at level alpha=",alpha,"\n")
+ 	if(loud) cat("\nObserved t-value and p-score for observed correlation Rho-Hat =",rho,"\n")
+ 	if(loud) cat("z=",zr,"p=",pr,"\n")
+
+## 	if(loud) if(pr<alpha) cat("\nResults significant at level alpha=",alpha,"\n")
+## 	if(loud) if(pr>=alpha) cat("\nResults not significant at level alpha=",alpha,"\n")
 
 
 if(! latex=="")
@@ -74,6 +81,10 @@ if(! latex=="")
 		cat("\\end{figure}\n",file=latex,append=TRUE)
 		if(loud) cat("\n Results written as latex figure to file:",latex,"\n")
 	}
-list(rho,zr,pr)
+if(! file=="") {
+	cat(rhobs,file=file,append=TRUE,sep="\n")
+	if(loud) cat("\n bootstrapped correlations written to file:",file,"\n")
+} 
+list(rho,rmn,vrr,trh,prh,zr,pr)
 }
 

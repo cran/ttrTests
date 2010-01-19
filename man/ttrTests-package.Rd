@@ -1,5 +1,5 @@
 \name{ttrTests-package}
-\Rdversion{1.3}
+\Rdversion{1.4}
 \alias{ttrTests-package}
 \alias{ttrTests}
 \docType{package}
@@ -13,8 +13,8 @@ Contains four major tests supported by other functions: Did the TTR strategy out
 \tabular{ll}{
 Package: \tab ttrTests\cr
 Type: \tab Package\cr
-Version: \tab 1.3\cr
-Date: \tab 2009-12-30\cr
+Version: \tab 1.4\cr
+Date: \tab 2010-01-19\cr
 License: \tab GPL\cr
 LazyLoad: \tab yes\cr
 }
@@ -68,10 +68,12 @@ Ability, the later not included in the first version.
 
 Version >= 1.2 fixes some minor glitches in 1.1.
 
-version >= 1.3 uses a different algorithm to compute the statistical
+Version >= 1.3 uses a different algorithm to compute the statistical
 significance of the observed correlation from test (4).  Some new functions
 have been added to accomplish this.  An option for the position/indicator
 functions was added to increase flexibility.  Other minor changes here and there.
+
+Version >= 1.4 fixes some minor glitches in 1.3
 }
 \author{
 David St John

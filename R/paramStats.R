@@ -57,7 +57,7 @@ if(length(start)==4)
 		if(counter==5) 
 			{
 			now <- timeDate()
-			secs <- as.double((now-then)*prod(nSteps)/counter)
+			secs <- as.double(difftimeDate(now,then,unit="secs")*prod(nSteps)/counter)
 			rtime <- secs
 			if(loud){	
 				days <- floor(secs/(60*60*24))
@@ -124,7 +124,7 @@ else if(length(start)==3)
 		if(counter==5) 
 			{
 			now <- timeDate()
-			secs <- as.double((now-then)*prod(nSteps)/counter)
+			secs <- as.double(difftimeDate(now,then,unit="secs")*prod(nSteps)/counter)
 			rtime <- secs
 			if(loud){	
 				days <- floor(secs/(60*60*24))
@@ -186,7 +186,7 @@ else if(length(start)==2)
 		if(counter==5) 
 		{
 			now <- timeDate()
-			secs <- as.double((now-then)*prod(nSteps)/counter)
+			secs <- as.double(difftimeDate(now,then,unit="secs")*prod(nSteps)/counter)
 			rtime <- secs
 		if(loud){	
 			days <- floor(secs/(60*60*24))
@@ -243,7 +243,7 @@ else if(length(start)==1)
 		if(counter==5) 
 		{
 			now <- timeDate()
-			secs <- as.double((now-then)*prod(nSteps)/counter)
+			secs <- as.double(difftimeDate(now,then,unit="secs")*prod(nSteps)/counter)
 			rtime <- secs
 		if(loud){	
 			days <- floor(secs/(60*60*24))

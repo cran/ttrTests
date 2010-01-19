@@ -23,7 +23,6 @@ else if(model=="bootstrap")
 
 	{ 
 	n <- length(x)
-	foo <- .Random.seed
 	sample <- 0
 	sam <- floor(runif(n,max=n))
 	for(k in 1:n) 

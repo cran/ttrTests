@@ -1,5 +1,5 @@
 \name{subperiods}
-\Rdversion{1.3}
+\Rdversion{1.4}
 \alias{subperiods}
 \title{
 Computes the Correlation between Conditional Returns in Two Non-Overlapping Sub-Periods

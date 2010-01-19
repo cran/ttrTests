@@ -1,5 +1,5 @@
 \name{paramPersist}
-\Rdversion{1.3}
+\Rdversion{1.4}
 \alias{paramPersist}
 \title{
 Robustness, or Persistence, of Parameter Choices for TTR
@@ -96,7 +96,8 @@ using "start,nSteps,stepSize" to define a domain of parameters
 }
 \value{
 Output is a list containing the observed correlation coefficient,
-the z-score and p-value.
+the mean and variance of correlation in bootstrapped samples, and
+the z-scores and p-values for hypothesis testing.
 }
 \references{
 This test was invented by the author to the best of his knowledge.

@@ -53,7 +53,7 @@ function(x,model="stationaryBootstrap",userParams=4,nSamples=100,ttr="macd4",par
 			if(k==5) if(loud) 
 				{
 				now <- timeDate()
-				secs <- as.double((now-then)*nSamples/k)
+				secs <- as.double(difftimeDate(now,then,unit="secs")*nSamples/k)
 				days <- floor(secs/(60*60*24))
 				hours <- floor(secs/(60*60)) - 24*days
 				mins <- floor(secs/60) - 24*60*days - 60*hours

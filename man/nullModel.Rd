@@ -1,5 +1,5 @@
 \name{nullModel}
-\Rdversion{1.3}
+\Rdversion{1.4}
 \alias{nullModel}
 \title{
 Hypothesis test for efficacy of TTR

@@ -1,5 +1,5 @@
 \name{dataSnoop}
-\Rdversion{1.3}
+\Rdversion{1.4}
 \alias{dataSnoop}
 \title{
 Two Tests for Data Snooping: RC and SPA
