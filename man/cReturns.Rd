@@ -1,15 +1,15 @@
 \name{cReturns}
-\Rdversion{1.4}
+\Rdversion{1.5}
 \alias{cReturns}
 \title{
 Return series conditioned on a TTR
 }
 \description{
 For a series x(t) and a given TTR, computes
- - the return series r(t) = ln( x(t+1) / x(t) )
- - the conditional return series, r(t)*s(t), where
-   s(t) is the position indicated by the TTR
-   i.e. s(t) = 1 for long, -1 for short, 0 for neutral
+ the return series r(t) = ln( x(t+1) / x(t) ) and
+ the conditional return series, r(t)*s(t), where
+ s(t) is the position indicated by the TTR
+ i.e. s(t) = 1 for long, -1 for short, 0 for neutral
 }
 \usage{
 cReturns(x, ttr = "macd4", params = 0, burn = 0, short = FALSE, 
@@ -50,6 +50,9 @@ Trading cost, as a percentage.  Used to compute an adjusted average
 \value{
 \item{cReturns}{The conditional returns series}
 \item{aReturns}{The mean one-period return, adjusted for trading costs}
+\item{lReturns}{The conditional returns only during periods when long}
+\item{sReturns}{The conditional returns only during periods when short}
+\item{nReturns}{The conditional returns only during periods when neutral}
 }
 \references{
 William Brock, Josef Lakonishok, and Blake LeBaron. Simple technical
@@ -78,7 +81,7 @@ spData <- as.vector(getYahooData("SPY",start="20060101",end="20081231")[,"Close"
 mean(diff(log(spData)))
 
 cr <- cReturns(spData)
-mean(cr)
+mean(cr[[1]])
 
 }
 

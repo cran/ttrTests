@@ -5,7 +5,11 @@ then <- timeDate()
 cvr <- subperiods(x,ttr=ttr,start=start,nSteps=nSteps,stepSize=stepSize,restrict=restrict,burn=burn,short=short,condition=condition,silent=silent,TC=TC,loud=loud,plot=plot,alpha=alpha,periods=periods,file=file,latex=latex)
 ## cv <- cvr[[1]]
 rho <- cvr[[2]]
-
+if(rho>0.5) {
+cat("\n Null hypothesis has estimated probability zero for observed correlation",rho,">1/2.  Done\n")
+0
+}
+else {
 if(loud) cat("\nPreparing to Create",bSamples,"Bootstrapped Samples\n")
 if(loud)
 	{ 	now <- timeDate()
@@ -40,27 +44,35 @@ if(loud) cat("\n****************************************************************
 ##	mn <- mean(cvbs)
 ##	vr <- var(cvbs)
 
-rmn <- mean(rhobs)
-vrr <- var(rhobs)
+## 	rmn <- mean(rhobs)
+##	vrr <- var(rhobs)
 
 ##	z <- (cv-mn)/sqrt(vr)
 ##	p <- ifelse(z>0,1-pt(z,df=bSamples),pt(z,df=bSamples))
 
-	zr <- (rho-rmn)/sqrt(vrr)
-	pr <- ifelse(zr>0,1-pt(zr,df=bSamples),pt(zr,df=bSamples))
+	count <- sum( ifelse(rhobs > 2*rho,1,0) )
+	pr <- count/bSamples
+
+	sorted <- sort(2*rho - rhobs)
+
+	iMin <- 1+floor(bSamples/100)
+	iMax <- bSamples - iMin + 1
+	quant1 <- sorted[iMin]
+	quant99 <- sorted[iMax]
 
 ##	if(loud) cat("\nObserved z-value and p-score for covariance based on C-Hat =",cv,"\n")
 ##	if(loud) cat("z=",z,"p=",p,"\n")
 
-if(loud) cat("\nMean correlation from Bootstrap =",rmn,"\n")
-if(loud) cat("Standard Deviation =",sqrt(vrr),"for",length(rhobs),"observations\n")
-ster <- sqrt(vrr/length(rhobs))
-trh <- rmn/ster
-prh <- ifelse(trh>0,1-pt(trh,df=bSamples),pt(trh,df=bSamples))
-if(loud) cat("Simple t-test for zero correlation in Bootstrap Distribution:",trh,"p-value:",prh,"\n")
+##	if(loud) cat("\nMean correlation from Bootstrap =",rmn,"\n")
+##	if(loud) cat("Standard Deviation =",sqrt(vrr),"for",length(rhobs),"observations\n")
+##	ster <- sqrt(vrr/length(rhobs))
+##	trh <- rmn/ster
+##	prh <- ifelse(trh>0,1-pt(trh,df=bSamples),pt(trh,df=bSamples))
 
- 	if(loud) cat("\nObserved t-value and p-score for observed correlation Rho-Hat =",rho,"\n")
- 	if(loud) cat("z=",zr,"p=",pr,"\n")
+if(loud) cat("Observed Percentage:",pr,"\n")
+
+## 	if(loud) cat("\nObserved t-value and p-score for observed correlation Rho-Hat =",rho,"\n")
+## 	if(loud) cat("z=",zr,"p=",pr,"\n")
 
 ## 	if(loud) if(pr<alpha) cat("\nResults significant at level alpha=",alpha,"\n")
 ## 	if(loud) if(pr>=alpha) cat("\nResults not significant at level alpha=",alpha,"\n")
@@ -68,23 +80,20 @@ if(loud) cat("Simple t-test for zero correlation in Bootstrap Distribution:",trh
 
 if(! latex=="")
 		{
-		cat("\n\\begin{figure}[htp]\n",file=latex,append=TRUE)
+		cat("\n\\begin{table}[htp]\n",file=latex,append=TRUE)
 		cat("\\centering\n",file=latex,append=TRUE)
-		cat("\\begin{tabular}{ c | c c c }\n",file=latex,append=TRUE)
-		cat(" & observation & z-score & p-value \\\\ \\hline \n",file=latex,append=TRUE)
-		##	if(p < alpha ) cat("Covariance &",cv," &",p," &",z,"*** \\\\ \n",file=latex,append=TRUE)
-		##	else cat("Covariance &",cv," &",p," &",z," \\\\ \n",file=latex,append=TRUE)
-		if(pr < alpha ) cat("Correlation &",rho," &",pr," &",zr,"*** \\\\ \n",file=latex,append=TRUE)
-		else cat("Correlation &",rho," &",pr," &",zr," \\\\ \n",file=latex,append=TRUE)
+		cat("\\begin{tabular}{ c c c c }\n",file=latex,append=TRUE)
+		cat("1\\% quantile & 99\\% quantile & theta-hat & p-value \\\\ \\hline \n",file=latex,append=TRUE)
+		cat(quant1," &",quant99," &",rho," &",pr," \\\\ \n",file=latex,append=TRUE)
 		cat("\\end{tabular}\n",file=latex,append=TRUE)
-		cat("\\caption{Correlation Significance Level, Bootstrapped}\n",file=latex,append=TRUE)
-		cat("\\end{figure}\n",file=latex,append=TRUE)
+		cat("\\caption{Bootstrapped Excess Returns from Model:",model,"}\n",file=latex,append=TRUE)
+		cat("\\end{table}\n",file=latex,append=TRUE)
 		if(loud) cat("\n Results written as latex figure to file:",latex,"\n")
 	}
 if(! file=="") {
 	cat(rhobs,file=file,append=TRUE,sep="\n")
 	if(loud) cat("\n bootstrapped correlations written to file:",file,"\n")
 } 
-list(rho,rmn,vrr,trh,prh,zr,pr)
+list(rho,rhobs,pr)
 }
-
+}

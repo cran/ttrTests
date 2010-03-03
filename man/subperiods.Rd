@@ -1,5 +1,5 @@
 \name{subperiods}
-\Rdversion{1.4}
+\Rdversion{1.5}
 \alias{subperiods}
 \title{
 Computes the Correlation between Conditional Returns in Two Non-Overlapping Sub-Periods
@@ -11,8 +11,9 @@ for a given TTR.
 }
 \usage{
 subperiods(x, ttr = "macd4", start = 0, nSteps = 0, stepSize = 0, 
-restrict = FALSE, burn = 0, short = FALSE, condition = NULL, silent = TRUE, TC = 0.001, loud = TRUE, 
-plot = TRUE, alpha = 0.05, periods = 0, file = "", latex = "", benchmark = "hold")
+restrict = FALSE, burn = 0, short = FALSE, condition = NULL, 
+silent = TRUE, TC = 0.001, loud = TRUE, plot = TRUE, alpha = 0.05, 
+periods = 0, file = "", latex = "", benchmark = "hold")
 }
 %- maybe also 'usage' for other objects documented here.
 \arguments{

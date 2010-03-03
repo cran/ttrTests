@@ -1,5 +1,5 @@
 \name{paramPersist}
-\Rdversion{1.4}
+\Rdversion{1.5}
 \alias{paramPersist}
 \title{
 Robustness, or Persistence, of Parameter Choices for TTR
@@ -8,13 +8,16 @@ Robustness, or Persistence, of Parameter Choices for TTR
 Divides the given data set into 2 subperiods and computes the correlation
 coefficient using a call to the 'subperiods' function.  A p-value  for the
 null hypothesis that there is no correlation in the underlying distribution
-is given using the bootstrapping procedure. 
+is given using the bootstrapping procedure. This is the Parameter
+Domain Correlation (PDC) test, as defined in Chapter 3 of the author's PhD thesis
+(see below reference).
 }
 \usage{
-paramPersist(x, ttr = "macd4", start = 0, nSteps = 0, stepSize = 0, restrict = FALSE,
-bSamples = 25, model = "stationaryBootstrap", userParams = 4, 
-burn = 0, short = FALSE, condition = NULL, silent = TRUE, TC = 0.001, 
-loud = TRUE, plot = TRUE, alpha = 0.05, periods = 2, file = "", latex = "")
+paramPersist(x, ttr = "macd4", start = 0, nSteps = 0, stepSize = 0, 
+restrict = FALSE, bSamples = 25, model = "stationaryBootstrap", 
+userParams = 4, burn = 0, short = FALSE, condition = NULL, 
+silent = TRUE, TC = 0.001, loud = TRUE, plot = TRUE, 
+alpha = 0.05, periods = 2, file = "", latex = "")
 }
 %- maybe also 'usage' for other objects documented here.
 \arguments{
@@ -96,11 +99,13 @@ using "start,nSteps,stepSize" to define a domain of parameters
 }
 \value{
 Output is a list containing the observed correlation coefficient,
-the mean and variance of correlation in bootstrapped samples, and
-the z-scores and p-values for hypothesis testing.
+the observed correlation coefficients in bootstrapped samples, and
+the p-value for hypothesis testing.
 }
 \references{
-This test was invented by the author to the best of his knowledge.
+David St John.  Technical Analysis based on Moving Average Convergence
+and Divergence.  Phd thesis, University of Illinois, Chicago.  2010.
+http://math.uic.edu/~dstjohn/thesis.pdf
 }
 \author{
 David St John
@@ -124,8 +129,6 @@ solely at the risk of the end user.
 
 spData <- as.vector(getYahooData("SPY",start="20060101",end="20081231")[,"Close"])
 pp <- paramPersist(spData,bSamples=3)
-
-pp
 
 }
 

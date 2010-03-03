@@ -1,5 +1,5 @@
 \name{ttrTests-package}
-\Rdversion{1.4}
+\Rdversion{1.5}
 \alias{ttrTests-package}
 \alias{ttrTests}
 \docType{package}
@@ -74,6 +74,12 @@ have been added to accomplish this.  An option for the position/indicator
 functions was added to increase flexibility.  Other minor changes here and there.
 
 Version >= 1.4 fixes some minor glitches in 1.3
+
+Version >= 1.5 fixes some major glitches in 1.4, now
+producing correct results for some tests that were
+behaving questionably, and with much more accurate
+p-values based on bootstrapping.
+
 }
 \author{
 David St John
@@ -142,6 +148,10 @@ Finance, 54(5):1647-1691, 1999.
 
 [15] Jack L. Treynor and Robert Ferguson. In defense of technical analysis.
 The Journal of Finance, 40(3):757-773, 1985.
+
+[16] David St John.  Technical Analysis based on Moving Average Convergence
+and Divergence.  Phd thesis, University of Illinois, Chicago.  2010.
+http://math.uic.edu/~dstjohn/thesis.pdf
 }
 \keyword{ package }
 \examples{
@@ -149,7 +159,7 @@ The Journal of Finance, 40(3):757-773, 1985.
 spData <- as.vector(getYahooData("SPY",start="20060101",end="20081231")[,"Close"])
 
 stat <- returnStats(spData)
-null <- nullModel(spData,nSamples=5)
+null <- nullModel(spData,bSamples=5)
 spa <- dataSnoop(spData,bSamples=3)
 pp <- paramPersist(spData,bSamples=3)
 }

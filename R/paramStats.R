@@ -42,8 +42,10 @@ if(length(start)==4)
 	counter <- 0
 	rBest <- 0
 	sBest <- 0
+	aBest <- 0
 	rMax <- 0
 	sMax <- 0
+	aMax <- 0
 
 	if(loud) cat("\nPreparing to Analyze",prod(nSteps),"Parameterizations of TTR\n")
 	flush.console()
@@ -81,7 +83,7 @@ if(length(start)==4)
 	cMean[counter] <- stat[[2]][1]-stat[[1]][1]
 	## ##	pVal <- stat[[3]][4]
 	## ## sig[counter] <- as.double(pVal<alpha)
-	aRet[counter] <- stat[[3]][1]
+	aRet[counter] <- stat[[3]][1] - stat[[1]][1]
 	s0[counter] <- stat[[4]][3]
 	if(counter==1) {
 		rMax <- cMean[counter]
@@ -95,6 +97,12 @@ if(length(start)==4)
 	if(counter>1) if(s0[counter]>sMax) {
 		sMax <- s0[counter]
 		sBest <- c(m,n,p,q) }
+	if(counter==1) {
+		aMax <- aRet[counter]
+		aBest <- c(m,n,p,q)}
+	if(counter>1) if(aRet[counter]>rMax) {
+		aMax <- aRet[counter]
+		aBest <- c(m,n,p,q) }
 	## ## s1[counter] <- as.double(stat[[2]][3]>stat[[1]][3])
 	}
 	}
@@ -147,7 +155,7 @@ else if(length(start)==3)
 	cMean[counter] <- stat[[2]][1]-stat[[1]][1]
 	## ##	pVal <- stat[[3]][4]
 	## ## sig[counter] <- as.double(pVal<alpha)
-	aRet[counter] <- stat[[3]][1]
+	aRet[counter] <- stat[[3]][1] - stat[[1]][1]
 	s0[counter] <- stat[[4]][3]
 	if(counter==1) {
 		rMax <- cMean[counter]
@@ -161,6 +169,12 @@ else if(length(start)==3)
 	if(counter>1) if(s0[counter]>sMax) {
 		sMax <- s0[counter]
 		sBest <- c(m,n,p) }
+	if(counter==1) {
+		aMax <- aRet[counter]
+		aBest <- c(m,n,p,q)}
+	if(counter>1) if(aRet[counter]>rMax) {
+		aMax <- aRet[counter]
+		aBest <- c(m,n,p,q) }
 	## ## s1[counter] <- as.double(stat[[2]][3]>stat[[1]][3])
 	}
 	}
@@ -208,7 +222,7 @@ else if(length(start)==2)
 	cMean[counter] <- stat[[2]][1]-stat[[1]][1]
 	## ##	pVal <- stat[[3]][4]
 	## ## sig[counter] <- as.double(pVal<alpha)
-	aRet[counter] <- stat[[3]][1]
+	aRet[counter] <- stat[[3]][1] - stat[[1]][1]
 	s0[counter] <- stat[[4]][3]
 	if(counter==1) {
 		rMax <- cMean[counter]
@@ -222,6 +236,12 @@ else if(length(start)==2)
 	if(counter>1) if(s0[counter]>sMax) {
 		sMax <- s0[counter]
 		sBest <- c(m,n) }
+	if(counter==1) {
+		aMax <- aRet[counter]
+		aBest <- c(m,n,p,q)}
+	if(counter>1) if(aRet[counter]>rMax) {
+		aMax <- aRet[counter]
+		aBest <- c(m,n,p,q) }
 	## ## s1[counter] <- as.double(stat[[2]][3]>stat[[1]][3])
 	}
 	}
@@ -264,7 +284,7 @@ else if(length(start)==1)
 	cMean[counter] <- stat[[2]][1]-stat[[1]][1]
 	## ##	pVal <- stat[[3]][4]
 	## ## sig[counter] <- as.double(pVal<alpha)
-	aRet[counter] <- stat[[3]][1]
+	aRet[counter] <- stat[[3]][1] - stat[[1]][1]
 	s0[counter] <- stat[[4]][3]
 	if(counter==1) {
 		rMax <- cMean[counter]
@@ -278,6 +298,12 @@ else if(length(start)==1)
 	if(counter>1) if(s0[counter]>sMax) {
 		sMax <- s0[counter]
 		sBest <- m }
+	if(counter==1) {
+		aMax <- aRet[counter]
+		aBest <- c(m,n,p,q)}
+	if(counter>1) if(aRet[counter]>rMax) {
+		aMax <- aRet[counter]
+		aBest <- c(m,n,p,q) }
 	## ## s1[counter] <- as.double(stat[[2]][3]>stat[[1]][3])
 	}
 }
@@ -295,8 +321,9 @@ else
 
 zScore <- (cMean-mean(cMean))/sqrt(var(cMean))
 if(loud) cat("\n********************************************************************\n")
-if(loud) cat("\nBest Result:",max(cMean),"for Parameters:",rBest," White's V-hat-n:",max(cMean)*sqrt(length(x)),"\n")
-if(loud) cat("Best Sharpe(0):",max(s0),"for Parameters:",sBest," Hansen's T-SPA:",max(s0,0)*sqrt(length(x)),"\n")
+if(loud) cat("\nBest Mean Excess Return:",max(cMean),"for Parameters:",rBest,"\n")
+if(loud) cat("Best Mean Adjusted Excess Return:",max(aRet),"for Parameters:",aBest,"\n")
+if(loud) cat("Best Sharpe(0):",max(s0),"for Parameters:",sBest,"\n")
 if(plot) plot(cMean,main="Excess Returns",ylab="Conditional Mean - Benchmark Mean",xlab="Parameter Choice")
 if(! file=="")
 	{
@@ -304,10 +331,10 @@ if(! file=="")
 	for(k in 1:length(mList)) cat(table[k,],"\n",file=file,append=TRUE)
 	cat("\n Output also stored in file:",file,"\n")
 }
-if(length(start)==1) list(cMean,zScore,aRet,s0,rBest,sBest,mList)
-else if(length(start)==2) list(cMean,zScore,aRet,s0,rBest,sBest,mList,nList)
-else if(length(start)==3) list(cMean,zScore,aRet,s0,rBest,sBest,mList,nList,pList)
-else if(length(start)==4) list(cMean,zScore,aRet,s0,rBest,sBest,mList,nList,pList,qList)
+if(length(start)==1) list(cMean,zScore,aRet,s0,rBest,sBest,aBest,mList)
+else if(length(start)==2) list(cMean,zScore,aRet,s0,rBest,sBest,aBest,mList,nList)
+else if(length(start)==3) list(cMean,zScore,aRet,s0,rBest,sBest,aBest,mList,nList,pList)
+else if(length(start)==4) list(cMean,zScore,aRet,s0,rBest,sBest,aBest,mList,nList,pList,qList)
 else NA
 }
 

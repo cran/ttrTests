@@ -42,6 +42,7 @@ cReturns <- returns*pos
 
 adjust <- nTrades*TC
 aaReturn <- (1/length(cReturns))*(sum(cReturns)-adjust)
+
 list(cReturns,aaReturn,lReturns,sReturns,nReturns)
 
 ## ## }

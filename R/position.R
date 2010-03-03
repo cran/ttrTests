@@ -88,7 +88,7 @@ else if(ttr=="trix")
 }
 else if(is.function(ttr))
 	{
-	s <- ttr(x,params,burn,short)
+	s <- ttr(x=x,params=params,burn=burn,short=short)
 	check <- ifelse(abs(s)>1,1,0)
 	s2 <- ifelse(s==floor(s),0,1)
 	ch <- sum(check) + sum(s2)

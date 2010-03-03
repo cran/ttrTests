@@ -1,5 +1,5 @@
 \name{bootstrap}
-\Rdversion{1.4}
+\Rdversion{1.5}
 \alias{bootstrap}
 \title{
 Generates a Bootstrap Sample from Raw Data
@@ -10,6 +10,9 @@ Given a data set, this function returns a randomly generated data set
  (i.i.d.) bootstrapping and Stationary (block) bootstrapping are
  supported.  If random data is desired from other model distributions,
  for example ARIMA or GARCH, a user defined function can be input.
+ See function generateSample() for an implementation where the original
+ data is transformed to returns data, resampled, and then exponentiated
+ and aggregated back to a bootstrapped price series.
 }
 \usage{
 bootstrap(x, model = "bootstrap", userParams = 4)

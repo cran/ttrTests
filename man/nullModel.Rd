@@ -1,5 +1,5 @@
 \name{nullModel}
-\Rdversion{1.4}
+\Rdversion{1.5}
 \alias{nullModel}
 \title{
 Hypothesis test for efficacy of TTR
@@ -10,9 +10,10 @@ One of the four main functions in the package.  Creates a confidence interval
 of output to a file as a latex figure.
 }
 \usage{
-nullModel(x, model = "stationaryBootstrap", userParams = 4, nSamples = 100, 
-ttr = "macd4", params = 0, burn = 0, short = FALSE, condition = NULL, silent = TRUE, loud = TRUE, 
-alpha = 0.025, TC = 0.001, benchmark = "hold", latex = "")
+nullModel(x, model = "stationaryBootstrap", userParams = 4, 
+bSamples = 100, ttr = "macd4", params = 0, burn = 0, short = FALSE, 
+condition = NULL, silent = TRUE, loud = TRUE, alpha = 0.025, 
+crit = "return", TC = 0.001, benchmark = "hold", latex = "")
 }
 %- maybe also 'usage' for other objects documented here.
 \arguments{
@@ -25,7 +26,7 @@ Passed to the function 'generateSample'
   \item{userParams}{
 Passed to the function 'generateSample'
 }
-  \item{nSamples}{
+  \item{bSamples}{
 How many bootstrapped samples to generate
 }
   \item{ttr}{
@@ -57,7 +58,14 @@ Logical.  If TRUE, output from subroutines will be supressed.
 Logical.  If FALSE, output from the main function will be supressed.
 }
   \item{alpha}{
-Confidence interval for 2-sided hypothesis test
+Confidence interval for 1-sided hypothesis test
+}
+  \item{crit}{
+The criterion used to evaluate the performance.  Supported
+values are "sharpe" for the sharpe ratio (risk free rate
+assumed zero) which is consistent with Hansen's SPA,
+"return" which is the excess return, and "adjust" which
+is excess return adjusted for trading costs.
 }
   \item{TC}{
 Percentage trading costs.  Used to adjust return statistics.
@@ -74,7 +82,7 @@ figure with a summary of the output will be appended to file.
 }
 }
 \value{
-\item{ CR }{A vector of conditional returns of length 'nSamples'}
+\item{ CR }{A vector of conditional returns of length 'bSamples'}
 \item{ AR }{CR, adjusted for trading costs}
 \item{ SR }{Sharp ratio for these returns using r_f = 0}
 \item{ Z }{Z-score for observed excess return, using mean
@@ -109,7 +117,7 @@ solely at the risk of the end user.
 \examples{
 
 spData <- as.vector(getYahooData("SPY",start="20060101",end="20081231")[,"Close"])
-null <- nullModel(spData,nSamples=5)
+null <- nullModel(spData,bSamples=5)
 
 }
 

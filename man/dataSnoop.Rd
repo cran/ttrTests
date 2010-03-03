@@ -1,5 +1,5 @@
 \name{dataSnoop}
-\Rdversion{1.4}
+\Rdversion{1.5}
 \alias{dataSnoop}
 \title{
 Two Tests for Data Snooping: RC and SPA
@@ -12,9 +12,11 @@ Hansen's test for Superior Predictive Ability.  Can write a summary
 of results to a file as a LaTeX figure.
 }
 \usage{
-dataSnoop(x, ttr = "macd4", start = 0, nSteps = 0, stepSize = 0, burn = 0, 
-short = FALSE, condition = NULL, silent = TRUE, TC = 0.001, loud = TRUE, alpha = 0.025, begin = 1, 
-percent = 1, file = "", benchmark = "hold", bSamples = 100, test="SPA",latex="")
+dataSnoop(x, ttr = "macd4", start = 0, nSteps = 0, stepSize = 0, 
+burn = 0, short = FALSE, condition = NULL, silent = TRUE, TC = 0.001, 
+loud = TRUE, alpha = 0.025, crit = "sharpe" , begin = 1, percent = 1, 
+file = "", benchmark = "hold", bSamples = 100, 
+model = "stationaryBootstrap", userParams=4, test="SPA", latex="")
 }
 \arguments{
   \item{x}{
@@ -57,7 +59,14 @@ Percentage used to compute returns adjusted for trading costs.
 Logical.  If FALSE, supresses output from the main function(s)
 }
   \item{alpha}{
-Confidence level for 2-sided hypothesis testing
+Confidence level for 1-sided hypothesis testing
+}
+  \item{crit}{
+The criterion used to evaluate the performance.  Supported
+values are "sharpe" for the sharpe ratio (risk free rate
+assumed zero) which is consistent with Hansen's SPA,
+"return" which is the excess return, and "adjust" which
+is excess return adjusted for trading costs.
 }
   \item{begin}{
 The starting index of the data.  The function assumes that the
@@ -80,6 +89,18 @@ When computing 'excess' returns, all functions in this package
   \item{bSamples}{
 Number of bootstrapped samples to analyze
 }
+  \item{model}{
+Currently built in choices are "bootstrap" and "stationaryBootstrap".
+ Also accepts a user defined function whose output is a series of 
+ the same length as the input data.
+}
+  \item{userParams}{
+Will be passed to the function 'model', in the case that 'model' is
+ a user defined function.  Hence, a user defined function should take 
+ two parameters, the data and a list of other needed inputs.
+If "stationaryBootstrap" is used, userParams is the average block
+ length from a geometric distribution, i.e. (1/lambda).
+}
   \item{test}{
 Supports "RC" which is White's Reality Check, or "SPA", which
 is Hansen's test for Superior Predictive Ability
@@ -90,7 +111,8 @@ figure with a summary of the output will be appended to file.
 }
 }
 \value{
-Returns the P-value or values from the given test.
+Returns the observed value for V-hat-N or T-SPA, the bootstrapped
+values of V-hat-N,b or T*-SPA, and P-value or values from the given test.
 }
 
 \references{
@@ -126,7 +148,7 @@ solely at the risk of the end user.
 
 spData <- as.vector(getYahooData("SPY",start="20060101",end="20081231")[,"Close"])
 rc <- dataSnoop(spData,bSamples=3,test="RC")
-## spa <- dataSnoop(spData,bSamples=3,test="SPA")
+spa <- dataSnoop(spData,bSamples=3,test="SPA")
 
 }
 

@@ -1,5 +1,5 @@
 \name{generateSample}
-\Rdversion{1.4}
+\Rdversion{1.5}
 \alias{generateSample}
 \title{
 Generates a Bootstrap Sample from Price Data

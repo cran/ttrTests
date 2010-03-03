@@ -1,5 +1,5 @@
 \name{returnStats}
-\Rdversion{1.4}
+\Rdversion{1.5}
 \alias{returnStats}
 \title{
 Conditional statistics for given data and TTR

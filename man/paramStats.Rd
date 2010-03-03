@@ -1,5 +1,5 @@
 \name{paramStats}
-\Rdversion{1.4}
+\Rdversion{1.5}
 \alias{paramStats}
 \title{
 Analyzes a domain of parameter choices to pick the best one
@@ -11,8 +11,9 @@ of parameters in a given domain and records the result.  This allows
 }
 \usage{
 paramStats(x, ttr = "macd4", start = 0, nSteps = 0, stepSize = 0, 
-restrict = FALSE, burn = 0, short = FALSE, condition = NULL, silent = TRUE, TC = 0.001, loud = TRUE, 
-plot = TRUE, alpha = 0.025, begin = 1, percent = 1, file = "", benchmark = "hold")
+restrict = FALSE, burn = 0, short = FALSE, condition = NULL, 
+silent = TRUE, TC = 0.001, loud = TRUE, plot = TRUE, alpha = 0.025, 
+begin = 1, percent = 1, file = "", benchmark = "hold")
 }
 %- maybe also 'usage' for other objects documented here.
 \arguments{
