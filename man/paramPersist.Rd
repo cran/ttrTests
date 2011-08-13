@@ -1,5 +1,5 @@
 \name{paramPersist}
-\Rdversion{1.5}
+\Rdversion{1.6}
 \alias{paramPersist}
 \title{
 Robustness, or Persistence, of Parameter Choices for TTR

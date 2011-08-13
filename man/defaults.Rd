@@ -1,5 +1,5 @@
 \name{defaults}
-\Rdversion{1.5}
+\Rdversion{1.6}
 \alias{defaults}
 \title{
 Default parameters for a given TTR

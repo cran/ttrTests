@@ -171,10 +171,10 @@ else if(length(start)==3)
 		sBest <- c(m,n,p) }
 	if(counter==1) {
 		aMax <- aRet[counter]
-		aBest <- c(m,n,p,q)}
+		aBest <- c(m,n,p)}
 	if(counter>1) if(aRet[counter]>rMax) {
 		aMax <- aRet[counter]
-		aBest <- c(m,n,p,q) }
+		aBest <- c(m,n,p) }
 	## ## s1[counter] <- as.double(stat[[2]][3]>stat[[1]][3])
 	}
 	}
@@ -238,10 +238,10 @@ else if(length(start)==2)
 		sBest <- c(m,n) }
 	if(counter==1) {
 		aMax <- aRet[counter]
-		aBest <- c(m,n,p,q)}
+		aBest <- c(m,n)}
 	if(counter>1) if(aRet[counter]>rMax) {
 		aMax <- aRet[counter]
-		aBest <- c(m,n,p,q) }
+		aBest <- c(m,n) }
 	## ## s1[counter] <- as.double(stat[[2]][3]>stat[[1]][3])
 	}
 	}
@@ -300,10 +300,10 @@ else if(length(start)==1)
 		sBest <- m }
 	if(counter==1) {
 		aMax <- aRet[counter]
-		aBest <- c(m,n,p,q)}
+		aBest <- c(m)}
 	if(counter>1) if(aRet[counter]>rMax) {
 		aMax <- aRet[counter]
-		aBest <- c(m,n,p,q) }
+		aBest <- c(m) }
 	## ## s1[counter] <- as.double(stat[[2]][3]>stat[[1]][3])
 	}
 }

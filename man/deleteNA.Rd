@@ -1,5 +1,5 @@
 \name{deleteNA}
-\Rdversion{1.5}
+\Rdversion{1.6}
 \alias{deleteNA}
 \title{
 Cleans data that contains NA entries

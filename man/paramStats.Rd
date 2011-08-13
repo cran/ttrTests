@@ -1,5 +1,5 @@
 \name{paramStats}
-\Rdversion{1.5}
+\Rdversion{1.6}
 \alias{paramStats}
 \title{
 Analyzes a domain of parameter choices to pick the best one

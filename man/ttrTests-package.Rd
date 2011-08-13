@@ -1,5 +1,5 @@
 \name{ttrTests-package}
-\Rdversion{1.5}
+\Rdversion{1.6}
 \alias{ttrTests-package}
 \alias{ttrTests}
 \docType{package}
@@ -13,8 +13,8 @@ Contains four major tests supported by other functions: Did the TTR strategy out
 \tabular{ll}{
 Package: \tab ttrTests\cr
 Type: \tab Package\cr
-Version: \tab 1.4\cr
-Date: \tab 2010-01-19\cr
+Version: \tab 1.6\cr
+Date: \tab 2011-08-13\cr
 License: \tab GPL\cr
 LazyLoad: \tab yes\cr
 }
@@ -80,6 +80,11 @@ producing correct results for some tests that were
 behaving questionably, and with much more accurate
 p-values based on bootstrapping.
 
+Version >= 1.6 allows the user to pass the 'restrict' option
+to the dataSnoop test.  Absence of this feature made it impossible for
+the user to use the 'restrict' option for a user defined ttr.  Also
+a small glitch in cating the results of dataSnoop was fixed.
+
 }
 \author{
 David St John
@@ -96,6 +101,28 @@ The author does not make any claim that any results will predict future
 performance.  No such prediction is made, directly or implied, by the outputs of 
 these function, and any attempt to use these function for such prediction is done 
 solely at the risk of the end user. 
+
+Please note that Dr. Halbert White owns U.S. patents 6,088,676 and 
+5,893,069.  Claims of Dr. White's patent include "...computer readable code 
+means for generating a statistic representative of the statistical 
+significance of the effectiveness of a best one of the comparable 
+entities...[and] based on the statistic, using the best one of the entities 
+to predict future performance." 
+
+The author does not intend, suggest, nor recommend use of Dr. White's
+Reality Check, implementable using code in this package,
+to predict future performance.  The author acknowledges the potential
+for modifying this code or embedding it into other systems whose use
+would then violate Dr. White's intellectual property rights.  To be very
+explicit, any commercial application would very likely infringe on
+Dr. White's patent rights, since making financial decisions based on
+results of the tests would de-facto be "predicting future performance".
+Dr. White has condoned use of his method for research purposes.
+
+With this acknoledgement, the author is able to offer this package
+under the GPL. Future contributers,
+as defined in the license agreement, assume full responsibility
+for their modifications and implementations. 
 }
 \references{
 [1]Sidney S. Alexander. Price movements in speculative markets: Trends

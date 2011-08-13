@@ -1,5 +1,5 @@
 \name{position}
-\Rdversion{1.5}
+\Rdversion{1.6}
 \alias{position}
 \title{
 Position Function
@@ -44,8 +44,6 @@ length as the data 'x'.  See notes for more details.
 \value{
 Value returned to function 'indicator' is returned as 'pos'
 }
-\references{
-}
 \author{
 David St John
 }
@@ -55,9 +53,6 @@ period when there should not be any position, and one otherwise.
 If none is given, a string of all ones is default.  Such a restriction 
 could be no positions held during certain times or any other external
 condition.
-}
-\examples{
-
 }
 
 \keyword{ ts }

@@ -1,5 +1,5 @@
 \name{dataSnoop}
-\Rdversion{1.5}
+\Rdversion{1.6}
 \alias{dataSnoop}
 \title{
 Two Tests for Data Snooping: RC and SPA
@@ -10,12 +10,32 @@ finding the best parameterization in the bootstrapped samples and
 performing one of two popular tests - White's Reality Check or
 Hansen's test for Superior Predictive Ability.  Can write a summary
 of results to a file as a LaTeX figure.
+
+Please note that Dr. White owns U.S. patents 6,088,676 and 
+5,893,069.  Claims of Dr. White's patent include "...computer readable code 
+means for generating a statistic representative of the statistical 
+significance of the effectiveness of a best one of the comparable 
+entities...[and] based on the statistic, using the best one of the entities 
+to predict future performance." 
+
+The author does not intend, suggest, nor recommend use of this code
+to predict future performance.  The author acknowledges the potential
+for modifying this code or embedding it into other systems whose use
+would then violate Dr. White's intellectual property laws.  To be very
+explicit, any commercial application would very likely infringe on
+Dr. White's patent rights, since making financial decisions based on
+results of the tests would de-facto be "predicting future performance".
+
+With this acknoledgement, the author is able to offer this package
+under the GPL. Future contributers,
+as defined in the license agreement, assume full responsibility
+for their modifications and implementations. 
 }
 \usage{
 dataSnoop(x, ttr = "macd4", start = 0, nSteps = 0, stepSize = 0, 
-burn = 0, short = FALSE, condition = NULL, silent = TRUE, TC = 0.001, 
-loud = TRUE, alpha = 0.025, crit = "sharpe" , begin = 1, percent = 1, 
-file = "", benchmark = "hold", bSamples = 100, 
+restrict=FALSE, burn = 0, short = FALSE, condition = NULL, silent = TRUE, 
+TC = 0.001, loud = TRUE, alpha = 0.025, crit = "sharpe" , begin = 1, 
+percent = 1, file = "", benchmark = "hold", bSamples = 100, 
 model = "stationaryBootstrap", userParams=4, test="SPA", latex="")
 }
 \arguments{
@@ -35,6 +55,11 @@ How many parameter choices to use for each parameter
 }
   \item{stepSize}{
 The difference between successive choices of a parameter.
+}
+  \item{restrict}{
+If restricted = TRUE, this will force the second parameter
+(and 4th, if applicable) to be strictly greater than the first (3rd, resp.)
+This is sensible if the pairs are moving average parameters.
 }
   \item{burn}{
 When computing the position function s(t), values for t < burn

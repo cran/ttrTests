@@ -1,5 +1,5 @@
 dataSnoop <-
-function(x,ttr="macd4",start=0,nSteps=0,stepSize=0,burn=0,short=FALSE,condition=NULL,silent=TRUE,TC=0.001,loud=TRUE,alpha=0.025,crit="sharpe",begin=1,percent=1,file="",benchmark="hold",bSamples=100,model="stationaryBootstrap",userParams=4,test="SPA",latex="")
+function(x,ttr="macd4",start=0,nSteps=0,stepSize=0,restrict=FALSE,burn=0,short=FALSE,condition=NULL,silent=TRUE,TC=0.001,loud=TRUE,alpha=0.025,crit="sharpe",begin=1,percent=1,file="",benchmark="hold",bSamples=100,model="stationaryBootstrap",userParams=4,test="SPA",latex="")
 {
 
 V <- 0
@@ -14,7 +14,7 @@ if(!crit=="sharpe") if(!crit=="return") if(!crit=="adjust"){
 
 if(test=="SPA") if(!crit=="sharpe") cat("\nWARNING.  SPA test is defined using sharpe ratio as criterion.\n")
 
-par1 <- paramStats(x,ttr=ttr,start=start,nSteps=nSteps,stepSize=stepSize,burn=burn,short=short,condition=condition,silent=silent,TC=TC,loud=loud,alpha=alpha,begin=begin,percent=percent,file=file,benchmark=benchmark)
+par1 <- paramStats(x,ttr=ttr,start=start,nSteps=nSteps,stepSize=stepSize,restrict=restrict,burn=burn,short=short,condition=condition,silent=silent,TC=TC,loud=loud,alpha=alpha,begin=begin,percent=percent,file=file,benchmark=benchmark)
 
 omega <- par1[[1]]/par1[[4]]
 

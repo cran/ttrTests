@@ -1,5 +1,5 @@
 \name{indicator}
-\Rdversion{1.5}
+\Rdversion{1.6}
 \alias{indicator}
 \title{
 The canonical position / indicator functions

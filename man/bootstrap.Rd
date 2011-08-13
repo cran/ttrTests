@@ -1,5 +1,5 @@
 \name{bootstrap}
-\Rdversion{1.5}
+\Rdversion{1.6}
 \alias{bootstrap}
 \title{
 Generates a Bootstrap Sample from Raw Data
