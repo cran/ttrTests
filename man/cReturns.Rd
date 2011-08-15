@@ -1,5 +1,5 @@
 \name{cReturns}
-\Rdversion{1.6}
+\Rdversion{1.7}
 \alias{cReturns}
 \title{
 Return series conditioned on a TTR
@@ -77,7 +77,7 @@ solely at the risk of the end user.
 
 ## Is the mean conditional return higher than the mean unconditional return?
 
-spData <- as.vector(getYahooData("SPY",start="20060101",end="20081231")[,"Close"])
+data(spData)
 mean(diff(log(spData)))
 
 cr <- cReturns(spData)

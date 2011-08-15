@@ -1,5 +1,5 @@
 \name{paramStats}
-\Rdversion{1.6}
+\Rdversion{1.7}
 \alias{paramStats}
 \title{
 Analyzes a domain of parameter choices to pick the best one
@@ -149,7 +149,7 @@ solely at the risk of the end user.
 }
 \examples{
 
-spData <- as.vector(getYahooData("SPY",start="20060101",end="20081231")[,"Close"])
+data(spData)
 ps <- paramStats(spData)
 
 max(ps[[1]])

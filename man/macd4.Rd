@@ -1,5 +1,5 @@
 \name{macd4}
-\Rdversion{1.6}
+\Rdversion{1.7}
 \alias{macd4}
 \title{
 MACD oscillator
@@ -46,7 +46,7 @@ David St John
 
 \examples{
 
-spData <- as.vector(getYahooData("SPY",start="20060101",end="20081231")[,"Close"])
+data(spData)
 oscillator <- macd4(spData)
 plot(oscillator)
 

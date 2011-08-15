@@ -1,5 +1,5 @@
 \name{indicator}
-\Rdversion{1.6}
+\Rdversion{1.7}
 \alias{indicator}
 \title{
 The canonical position / indicator functions
@@ -59,7 +59,7 @@ David St John
 ## How many days does the TTR 'macd4' indicate a long position?
 ## How many trades are indicated?
 
-spData <- as.vector(getYahooData("SPY",start="20060101",end="20081231")[,"Close"])
+data(spData)
 position <- indicator(spData,short=FALSE)
 
 length(spData)

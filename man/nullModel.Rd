@@ -1,5 +1,5 @@
 \name{nullModel}
-\Rdversion{1.6}
+\Rdversion{1.7}
 \alias{nullModel}
 \title{
 Hypothesis test for efficacy of TTR
@@ -116,7 +116,7 @@ solely at the risk of the end user.
 
 \examples{
 
-spData <- as.vector(getYahooData("SPY",start="20060101",end="20081231")[,"Close"])
+data(spData)
 null <- nullModel(spData,bSamples=5)
 
 }

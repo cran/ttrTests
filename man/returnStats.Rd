@@ -1,5 +1,5 @@
 \name{returnStats}
-\Rdversion{1.6}
+\Rdversion{1.7}
 \alias{returnStats}
 \title{
 Conditional statistics for given data and TTR
@@ -84,7 +84,7 @@ solely at the risk of the end user.
 }
 \examples{
 
-spData <- as.vector(getYahooData("SPY",start="20060101",end="20081231")[,"Close"])
+data(spData)
 stat <- returnStats(spData)
 
 }

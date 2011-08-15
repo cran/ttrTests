@@ -1,5 +1,5 @@
 \name{paramPersist}
-\Rdversion{1.6}
+\Rdversion{1.7}
 \alias{paramPersist}
 \title{
 Robustness, or Persistence, of Parameter Choices for TTR
@@ -127,7 +127,7 @@ solely at the risk of the end user.
 }
 \examples{
 
-spData <- as.vector(getYahooData("SPY",start="20060101",end="20081231")[,"Close"])
+data(spData)
 pp <- paramPersist(spData,bSamples=3)
 
 }

@@ -1,5 +1,5 @@
 \name{generateSample}
-\Rdversion{1.6}
+\Rdversion{1.7}
 \alias{generateSample}
 \title{
 Generates a Bootstrap Sample from Price Data
@@ -61,7 +61,7 @@ Where x is the data, userParams is a numeric vector.
 }
 \examples{
 
-spData <- as.vector(getYahooData("SPY",start="20060101",end="20081231")[,"Close"])
+data(spData)
 mean(diff(log(spData)))
 var(diff(log(spData)))
 plot(spData)

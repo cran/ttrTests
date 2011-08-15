@@ -191,7 +191,7 @@ else if(length(start)==2)
 	aRet <- 0
 	s0 <- 0
 	counter <- 0
-	if(loud) cat("\nPreparing to Analyze",prod(nSteps),"Parameterizations of TTR\n")
+	if(loud) cat("\nPreparing to Analyze",prod(nSteps),"Parameterizations of TTR.....\n")
 	rtime <- 0
 	then <- timeDate()
 	for(m in mVals) {

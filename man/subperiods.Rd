@@ -1,5 +1,5 @@
 \name{subperiods}
-\Rdversion{1.6}
+\Rdversion{1.7}
 \alias{subperiods}
 \title{
 Computes the Correlation between Conditional Returns in Two Non-Overlapping Sub-Periods
@@ -141,7 +141,7 @@ solely at the risk of the end user.
 }
 \examples{
 
-spData <- as.vector(getYahooData("SPY",start="20060101",end="20081231")[,"Close"])
+data(spData)
 sp <- subperiods(spData)
 
 sp[[1]]
